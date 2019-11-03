@@ -1,0 +1,28 @@
+.text-item {
+    min-height: 1.3em;
+    padding: 0.2em;
+}
+
+// .prompt-header, .selected {
+//     font-weight: bold;
+//     border-bottom: 2px solid #2E769B;
+// }
+
+// .selected {
+//     box-shadow: 2px 2px 0px 4px #ccc;
+// }
+
+// .clickable-text {
+//     border: 1px dotted;
+//     // border-radius: 50%;
+//     // margin: 0.6em;
+// }
+
+.created-by {
+    display: inline-block;
+    line-height: 1.75; //to match MUI button
+    font-size: 0.8em;
+    font-style: italic;
+    padding: 4px 12px;
+    text-transform: none;
+}

@@ -1,0 +1,96 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import '../styles/SwiperPage.css';
+import Loading from '../components/Loading';
+import FCDialogNew from '../containers/FCDialogNew';
+import FCTextItem from '../components/FCTextItem';
+import FCDialogEdit from '../containers/FCDialogEdit';
+import RetortBlock from '../components/RetortBlock';
+
+import { 
+    createRetort,
+    editPrompt,
+    editRetort,
+    } from '../actions/contentActions';
+
+class RetortsPage extends Component {
+
+    contentLoading () {
+        return <Loading contentName={this.pageName}/>
+    }
+    render () {
+        const { user, usersById, Prompts, selected, Retorts } = this.props;
+        const fetching = (Prompts.isFetching || Retorts.isFetching || !Retorts[selected] || !selected);
+        const myPrompt = (Array.isArray(this.props.Prompts.items)) ? this.props.Prompts.items.find(prompt => prompt.id === selected) : null;
+        const newFormButton = (
+            <FCDialogNew
+                key={'newretortbutton'}
+                type='Retort'
+                placeholder="Lather it up! Rub it in!"
+                submit={ (newRetort) => {
+                    this.props.dispatch(createRetort(selected, newRetort));
+                    }
+                }
+            />
+        )
+
+        function promptHeaderButton (target) {
+            return (
+            <FCTextItem
+                key='promptheader'
+                item={myPrompt}
+                type='Prompt'
+                classes={['clickable-text','prompt-header']}
+                click={target.handleOpen}
+            />
+        )};
+
+        const promptEditDialog = (
+                <FCDialogEdit
+                    key='prompt'
+                    type='Prompt'
+                    item={myPrompt}
+                    classes={['prompt', 'prompt-header']}
+                    submit={ (changedPromptText) => {
+                        this.props.dispatch(editPrompt(selected, changedPromptText));
+                        }
+                    }
+                    button={promptHeaderButton}
+                />
+        );
+
+        function retortBlocks () {
+            const blocks = Array.isArray(Retorts[selected].items) ? Retorts[selected].items.map( (item) => {
+                let myLike = user ? item.likes.find((like)=>like.user_id===user.id) : null;
+                let likedByMe = myLike ? true : false;
+                return (
+                    <RetortBlock
+                        key={item.id}
+                        item={item}
+                        selected={selected}
+                        myLike={myLike}
+                        likedByMe={likedByMe}
+                        createdBy={usersById[item.created_by]}
+                    />
+                )
+            }) : null;
+            return blocks;
+        }
+
+        return (
+            <div className={'retorts'}>
+                {(!fetching)? [promptEditDialog, newFormButton, retortBlocks()] : this.contentLoading()}
+            </div>
+        )
+    }
+}
+
+const mapStateToProps = state => ({
+    usersById: state.userReducer.usersById,
+    user: state.userReducer.user,
+    selected: state.contentReducer.selectedPrompt,
+    Prompts: state.contentReducer.allPrompts,
+    Retorts: state.contentReducer.retortsByPrompt
+});
+
+export default connect(mapStateToProps)(RetortsPage)

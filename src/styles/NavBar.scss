@@ -1,0 +1,36 @@
+// $selected: #4c629c;
+
+.NavBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    min-height: 5vh;
+    min-width: 100vw;
+    background: #dddddd;
+}
+
+.Navbar div {
+    // display: flex;
+    justify-content: space-around;
+    min-width: 100vw;
+}
+
+.Navbar div div {
+    // display: flex;
+    align-items: space-around;
+    justify-content: space-around;
+    min-width: 100vw;
+}
+
+.NavLink {
+    // display: inline-block;
+    vertical-align: middle;
+}
+
+.NavLink span {
+    vertical-align: middle;
+}
+
+button.NavLink {
+    text-transform: none;
+}

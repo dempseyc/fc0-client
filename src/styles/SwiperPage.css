@@ -1,0 +1,30 @@
+.SwiperPage {
+  position: absolute;
+  min-width: 100%;
+  height: 100vh;
+  overflow: hidden; }
+
+.page {
+  position: relative;
+  width: 95vw;
+  margin: 0 auto;
+  margin-top: 15vh;
+  padding-bottom: 80vh;
+  max-height: 30vh;
+  overflow-y: scroll; }
+
+input[type=text] {
+  width: 95%;
+  min-height: 1.3em;
+  padding: 0.1em;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1em;
+  display: inline-block;
+  color: #ddddcc;
+  border: 5px solid #ddddcc;
+  margin-bottom: 0.4em;
+  background: #666655; }
+
+.PageHeader-span {
+  font-size: 1.5em;
+  font-weight: bolder; }

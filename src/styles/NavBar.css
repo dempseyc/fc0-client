@@ -1,0 +1,25 @@
+.NavBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  min-height: 5vh;
+  min-width: 100vw;
+  background: #dddddd; }
+
+.Navbar div {
+  justify-content: space-around;
+  min-width: 100vw; }
+
+.Navbar div div {
+  align-items: space-around;
+  justify-content: space-around;
+  min-width: 100vw; }
+
+.NavLink {
+  vertical-align: middle; }
+
+.NavLink span {
+  vertical-align: middle; }
+
+button.NavLink {
+  text-transform: none; }

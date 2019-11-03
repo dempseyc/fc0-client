@@ -1,0 +1,12 @@
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+  background: url("../images/fc_logo_1.png");
+  min-height: 15vh;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat; }
