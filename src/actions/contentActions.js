@@ -1,6 +1,8 @@
-import axios from 'axios'
 
+import axios from 'axios'
 import { newCurrPage } from './viewsActions'
+
+import { API_URL } from './API_URL'
 
 export const REQUEST_PROMPTS = 'REQUEST_PROMPTS'
 export const RECEIVE_PROMPTS = 'RECEIVE_PROMPTS'
@@ -76,7 +78,7 @@ export function selectPrompt(promptID) {
 export function fetchPrompts() {
     return function (dispatch) {
         dispatch(requestPrompts());
-        const url = `${API_URL}/api/prompts`;
+        const url = `${API_URL}api/prompts`;
         return axios.get(url)
         .then(json => dispatch(receivePrompts(json.data)))
         .catch(error => dispatch(fetchPromptsFailure(error)))
@@ -86,7 +88,7 @@ export function fetchPrompts() {
 export function fetchRetorts(promptID) {
     return function (dispatch) {
         dispatch(requestRetorts(promptID));
-        const url = `${API_URL}/api/prompts/${promptID}/retorts`;
+        const url = `${API_URL}api/prompts/${promptID}/retorts`;
         return axios.get(url)
         .then(json => dispatch(receiveRetorts(promptID, json.data)))
         .catch(error => dispatch(fetchRetortsFailure(promptID, error)))
@@ -117,7 +119,7 @@ export function createPrompt(promptText) {
 
 export function createRetort(promptID, retortText) {
     return function (dispatch) {
-        const url = `${API_URL}/api/prompts/${promptID}/retorts/`;
+        const url = `${API_URL}api/prompts/${promptID}/retorts/`;
         return axios.post(url, {
             text: retortText,
             created_by: localStorage.id
@@ -136,7 +138,7 @@ export function createRetort(promptID, retortText) {
 
 export function editRetort(promptID, retortID, newText) {
     return function (dispatch) {
-        const url = `${API_URL}/api/prompts/${promptID}/retorts/${retortID}/?text=${newText}`;
+        const url = `${API_URL}api/prompts/${promptID}/retorts/${retortID}/?text=${newText}`;
         return axios.put(url, {}, {
             headers: {
               'Content-Type': 'application/json',
@@ -152,7 +154,7 @@ export function editRetort(promptID, retortID, newText) {
 
 export function editPrompt(promptID, newText) {
     return function (dispatch) {
-        const url = `${API_URL}/api/prompts/${promptID}/?text=${newText}`;
+        const url = `${API_URL}api/prompts/${promptID}/?text=${newText}`;
         return axios.put(url, {}, {
             headers: {
               'Content-Type': 'application/json',
@@ -248,7 +250,7 @@ function putRetortFailure (error) {
 export function fetchLikes (promptID, retortID) {
     return function (dispatch) {
         dispatch(getLikes(retortID));
-        const url = `${API_URL}/api/prompts/${promptID}/retorts/${retortID}/likes`
+        const url = `${API_URL}api/prompts/${promptID}/retorts/${retortID}/likes`
         return axios.get(url)
           .then(response => dispatch(getLikesSuccess(response)))
           .catch(error => dispatch(getLikesFailure(error)))
@@ -323,7 +325,7 @@ function deleteLikeFailure (error) {
 export function addLike(promptID, retortID) {
     return function (dispatch) {
         dispatch(postLike(promptID, retortID))
-        const url = `${API_URL}/api/prompts/${promptID}/retorts/${retortID}/likes`;
+        const url = `${API_URL}api/prompts/${promptID}/retorts/${retortID}/likes`;
         return axios.post(url, {}, {
             headers: {
               'Content-Type': 'application/json',
@@ -339,7 +341,7 @@ export function addLike(promptID, retortID) {
 export function removeLike(promptID, retortID, likeID) {
     return function (dispatch) {
         dispatch(deleteLike(promptID, retortID, likeID))
-        const url = `${API_URL}/api/prompts/${promptID}/retorts/${retortID}/likes/${likeID}`;
+        const url = `${API_URL}api/prompts/${promptID}/retorts/${retortID}/likes/${likeID}`;
         return axios.delete(url, {
             headers: {
               'Content-Type': 'application/json',
