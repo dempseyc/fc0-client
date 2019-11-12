@@ -97,7 +97,7 @@ export function fetchRetorts(promptID) {
 
 export function createPrompt(promptText) {
     return function (dispatch) {
-        const url = '/api/prompts/';
+        const url = `${API_URL}api/prompts/`;
 
         return axios.post(url, {
             text: promptText, created_by: localStorage.id
