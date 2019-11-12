@@ -77,8 +77,8 @@ class NavBar extends Component {
                         style={ TabStyle }
                         className='NavLink' 
                         value={4}
-                        icon={<MoreHorizIcon/>}
-                        label="more"/>
+                        icon={<WavesIcon/>}
+                        label="suggest"/>
                 </Tabs>
             </AppBar>
         )

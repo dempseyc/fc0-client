@@ -65,6 +65,17 @@ const theme = createMuiTheme({
       fixed: {
         width: '100vw'
       }
+    },
+    MuiTab: {
+      root: {
+        fontSize: '1rem'
+      },
+      labelContainer: {
+        boxSizing: 'content-box'
+      },
+      fullWidth: {
+        minWidth: '0'
+      }
     }
   }
 });
