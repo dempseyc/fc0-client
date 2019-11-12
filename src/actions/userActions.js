@@ -83,7 +83,7 @@ function userNotFound (username) {
     return {
         type: USER_NOT_FOUND,
         username:  `enter email to create user ${username}`,
-        message: `${username} not found`
+        message: `username ${username} available`
     }
 }
 
