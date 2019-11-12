@@ -88,6 +88,7 @@ function userReducer (state = initialState, action) {
             }
         case LOGIN_USER_FAILURE:
             return {
+                ...state,
                 user: initialState.user,
                 isFetching: false,
                 messages: action.type
@@ -95,7 +96,7 @@ function userReducer (state = initialState, action) {
         case RESET_USER:
             return {
                 ...initialState,
-                user: {username: `${action.username} logged out`}
+                user: {username: `${action.username} signed out`}
             }
         case POST_USER_FAILURE:
         case GET_USER_FAILURE:

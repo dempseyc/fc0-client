@@ -75,7 +75,7 @@ function userFound (username) {
     return {
         type: USER_FOUND,
         username: username,
-        message: `${username} found`
+        message: `enter password for ${username}`
     }
 }
 

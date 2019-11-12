@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import '../styles/SwiperPage.css';
+
 import Loading from '../components/Loading';
 import FCUserForm from '../components/FCUserForm';
 import UserDetails from '../components/UserDetails';
