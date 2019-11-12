@@ -61,6 +61,11 @@ const theme = createMuiTheme({
         boxShadow: '0 0 0.25rem 0.25rem #1de9b660',
       },
     },
+    MuiTabs: {
+      fixed: {
+        width: '100vw'
+      }
+    }
   }
 });
 
