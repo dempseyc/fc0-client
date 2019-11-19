@@ -26,7 +26,7 @@ class RetortsPage extends Component {
             <FCDialogNew
                 key={'newretortbutton'}
                 type='Retort'
-                placeholder="Lather it up! Rub it in!"
+                placeholder="Lather it up!"
                 submit={ (newRetort) => {
                     this.props.dispatch(createRetort(selected, newRetort));
                     }

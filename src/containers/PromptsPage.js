@@ -62,6 +62,7 @@ const mapStateToProps = state => ({
     selected: state.contentReducer.selectedPrompt,
     Prompts: state.contentReducer.allPrompts,
     Retorts: state.contentReducer.retortsByPrompt,
+    user: state.userReducer.user,
 });
 
 export default connect(mapStateToProps)(PromptsPage)

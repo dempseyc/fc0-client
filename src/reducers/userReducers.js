@@ -15,7 +15,7 @@ import {
    } from '../actions/userActions';
 
 const initialState = {
-    user: {username: 'not signed in'},
+    user: {username: 'not signed in', loggedIn: false },
     isFetching: false,
     users: {},
     usersById: {},
@@ -70,7 +70,10 @@ function userReducer (state = initialState, action) {
         case GET_USER_SUCCESS:
             return {
                 ...state,
-                user: action.user,
+                user: {
+                    username: action.user.username,
+                    loggedIn: true
+                },
                 isFetching: false,
                 messages: ['ready']
             }
@@ -96,7 +99,10 @@ function userReducer (state = initialState, action) {
         case RESET_USER:
             return {
                 ...initialState,
-                user: {username: `${action.username} signed out`}
+                user: {
+                    username: `${action.username} signed out`,
+                    loggedIn: false
+                }
             }
         case POST_USER_FAILURE:
         case GET_USER_FAILURE:

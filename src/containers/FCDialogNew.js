@@ -39,14 +39,15 @@ class FCDialogNew extends React.Component {
     };
 
     handleClose () {
-        this.setState({ open: false });
+        this.setState({ open: false,
+        value: null });
     };
 
     handleSubmitAndClose (text) {
         if (text !== undefined && text !== '') {
             this.submit(text);
         }
-        this.setState({ open: false });
+        this.handleClose();
     }
 
     render() {
@@ -76,7 +77,7 @@ class FCDialogNew extends React.Component {
                     autoFocus
                     margin='dense'
                     id='prompt'
-                    label={`new ${this.type}`}
+                    // label={`new ${this.type}`}
                     type='text'
                 />
             </DialogContent>
