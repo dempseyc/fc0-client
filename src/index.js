@@ -64,6 +64,9 @@ const theme = createMuiTheme({
     MuiTabs: {
       fixed: {
         width: '100vw'
+      },
+      flexContainer: {
+        paddingRight: '6px'
       }
     },
     MuiTab: {
@@ -79,16 +82,6 @@ const theme = createMuiTheme({
     }
   }
 });
-
-// const theme = createMuiTheme({
-//   overrides: {
-//     MuiButton: { // Name of the component ⚛️ / style sheet
-//       text: { // Name of the rule
-//         color: 'white', // Some CSS
-//       },
-//     },
-//   },
-// });
 
 const Root = () => (
   <Provider store={store}>

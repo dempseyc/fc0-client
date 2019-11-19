@@ -15,9 +15,9 @@ import { fetchUsers, fetchUser } from '../actions/userActions';
 const viewsStyle = {
 	position: 'fixed',
 	top: 0,
-	left: 0,
+	left: -6,
 	minHeight: '100vh',
-	minWidth: '100vw'
+	minWidth: '102vw'
 };
 
 const pageColors5 = ['#00aaaa','#3a99a7','#699cab','#a3b2b8','#eeddcc'];

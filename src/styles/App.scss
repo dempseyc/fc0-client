@@ -16,6 +16,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
+  // padding-right: 6px;
   min-width: 100vw;
   min-height: 100vh;
 }
@@ -28,6 +29,7 @@ div {
 
 .clickable-text {
   padding: 0.5rem;
+  border-radius: 4px;
 }
 
 .prompt-header {
