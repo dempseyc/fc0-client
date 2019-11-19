@@ -1,12 +1,11 @@
-
 import axios from 'axios'
 import { newCurrPage } from './viewsActions'
 
 import { API_URL } from './API_URL'
 
 export const REQUEST_PROMPTS = 'REQUEST_PROMPTS'
-export const RECEIVE_PROMPTS = 'RECEIVE_PROMPTS'
 export const FETCH_PROMPTS_FAILURE = 'FETCH_PROMPTS_FAILURE'
+export const RECEIVE_PROMPTS = 'RECEIVE_PROMPTS'
 
 export const REQUEST_RETORTS = 'REQUEST_RETORTS'
 export const RECEIVE_RETORTS = 'RECEIVE_RETORTS'
