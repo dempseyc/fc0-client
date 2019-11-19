@@ -10,7 +10,6 @@ class FCDialogNew extends React.Component {
     constructor (props) {
         super(props);
         this.submit = (text) => { this.props.submit(text) };
-        this.type = this.props.type;
         switch(this.type) {
             case 'Prompt':
                 this.color = 'primary';
@@ -18,13 +17,18 @@ class FCDialogNew extends React.Component {
             case 'Retort':
                 this.color = 'secondary';
                 break;
+            case 'Disabled':
+                this.color = 'default';
+                break;
             default:
-                break
+                break;
         }
         this.placeholder = this.props.placeholder;
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmitAndClose = this.handleSubmitAndClose.bind(this);
+        // this.buttonText = (this.props.loggedIn) ? '+' : '+ sign in to post +';
+        // this.onClickCb = (this.props.loggedIn) ? this.handleOpen : this.props.goToLogin;
         this.state = { 
             open: false
         };
@@ -40,7 +44,7 @@ class FCDialogNew extends React.Component {
 
     handleClose () {
         this.setState({ open: false,
-        value: null });
+        value: "" });
     };
 
     handleSubmitAndClose (text) {
@@ -51,16 +55,29 @@ class FCDialogNew extends React.Component {
     }
 
     render() {
+        switch(this.props.type) {
+            case 'Prompt':
+                this.color = 'primary';
+                break;
+            case 'Retort':
+                this.color = 'secondary';
+                break;
+            case 'Disabled':
+                this.color = 'default';
+                break;
+            default:
+                break;
+        }
         return (
         <div>
             <Button
                 variant='contained'
                 color={this.color}
-                onClick={this.handleOpen}
+                onClick={(this.props.loggedIn) ? this.handleOpen : this.props.goToLogin}
                 fullWidth={true}
                 size='large'
             >
-            +
+            {(this.props.loggedIn) ? '+' : '+ sign in to post +'}
             </Button>
             <Dialog
                 open={this.state.open}

@@ -15,7 +15,7 @@ import {
    } from '../actions/userActions';
 
 const initialState = {
-    user: {username: 'not signed in', loggedIn: false },
+    user: {username: 'sign in / create user', loggedIn: false },
     isFetching: false,
     users: {},
     usersById: {},

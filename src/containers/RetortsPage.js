@@ -1,38 +1,45 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import '../styles/SwiperPage.css';
-import Loading from '../components/Loading';
-import FCDialogNew from '../containers/FCDialogNew';
-import FCTextItem from '../components/FCTextItem';
-import FCDialogEdit from '../containers/FCDialogEdit';
-import RetortBlock from '../components/RetortBlock';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import '../styles/SwiperPage.css'
+import Loading from '../components/Loading'
+import FCDialogNew from '../containers/FCDialogNew'
+import FCTextItem from '../components/FCTextItem'
+import FCDialogEdit from '../containers/FCDialogEdit'
+import RetortBlock from '../components/RetortBlock'
 
 import { 
     createRetort,
     editPrompt,
     editRetort,
-    } from '../actions/contentActions';
+    } from '../actions/contentActions'
+
+import { newCurrPage } from '../actions/viewsActions';
 
 class RetortsPage extends Component {
 
     contentLoading () {
         return <Loading contentName={this.pageName}/>
     }
+
     render () {
-        const { user, usersById, Prompts, selected, Retorts } = this.props;
+        const { user, usersById, Prompts, selected, Retorts, views } = this.props;
         const fetching = (Prompts.isFetching || Retorts.isFetching || !Retorts[selected] || !selected);
         const myPrompt = (Array.isArray(this.props.Prompts.items)) ? this.props.Prompts.items.find(prompt => prompt.id === selected) : null;
         const newFormButton = (
             <FCDialogNew
-                key={'newretortbutton'}
-                type='Retort'
+                key='newretortbutton'
+                type={(user.loggedIn) ? 'Retort': 'Disabled'}
+                loggedIn={user.loggedIn}
                 placeholder="Lather it up!"
+                goToLogin={ () => {
+                    this.props.dispatch(newCurrPage(0,views.index));
+                }}
                 submit={ (newRetort) => {
                     this.props.dispatch(createRetort(selected, newRetort));
                     }
                 }
             />
-        )
+        );
 
         function promptHeaderButton (target) {
             return (
@@ -79,7 +86,7 @@ class RetortsPage extends Component {
 
         return (
             <div className={'retorts'}>
-                {(!fetching)? [promptEditDialog, newFormButton, retortBlocks()] : this.contentLoading()}
+                {(!fetching) ? [promptEditDialog, newFormButton, retortBlocks()] : this.contentLoading()}
             </div>
         )
     }
@@ -90,7 +97,8 @@ const mapStateToProps = state => ({
     user: state.userReducer.user,
     selected: state.contentReducer.selectedPrompt,
     Prompts: state.contentReducer.allPrompts,
-    Retorts: state.contentReducer.retortsByPrompt
+    Retorts: state.contentReducer.retortsByPrompt,
+    views: state.viewsReducer
 });
 
 export default connect(mapStateToProps)(RetortsPage)

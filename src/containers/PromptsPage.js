@@ -22,12 +22,17 @@ class PromptsPage extends Component {
     }
 
     render () {
-        const { Prompts, selected } = this.props;
+        const { Prompts, selected, user, views } = this.props;
         const classes = ['clickable-text'];
-        const showFormButton = (
+        const newFormButton = (
             <FCDialogNew
-                type='Prompt'
+                key='newpromptbutton'
+                type={(user.loggedIn) ? 'Prompt' : 'Disabled'}
+                loggedIn={user.loggedIn}
                 placeholder="What's your formula?"
+                goToLogin={ () => {
+                    this.props.dispatch(newCurrPage(0,views.index));
+                }}
                 submit={ (newPrompt) => {
                     this.props.dispatch(createPrompt(newPrompt));
                     }
@@ -50,7 +55,7 @@ class PromptsPage extends Component {
                 ) : null;
         return (
             <div className={'prompts'}>
-                { showFormButton }
+                { newFormButton }
                 { items }
             </div>
         )
@@ -59,10 +64,11 @@ class PromptsPage extends Component {
 }
 
 const mapStateToProps = state => ({
+    user: state.userReducer.user,
     selected: state.contentReducer.selectedPrompt,
     Prompts: state.contentReducer.allPrompts,
     Retorts: state.contentReducer.retortsByPrompt,
-    user: state.userReducer.user,
+    views: state.viewsReducer
 });
 
 export default connect(mapStateToProps)(PromptsPage)
