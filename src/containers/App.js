@@ -12,6 +12,8 @@ import { newCurrPage } from '../actions/viewsActions';
 
 import { fetchUsers, fetchUser } from '../actions/userActions';
 
+import ActionCable from 'action-cable-react-jwt';
+
 const viewsStyle = {
 	position: 'fixed',
 	top: 0,
@@ -62,6 +64,14 @@ class App extends Component {
 
 	componentDidMount() {
 		this.initialFetch();
+		// console.log('token', localStorage.token);
+		this.cable = ActionCable.createConsumer("ws://localhost:3001/cable", localStorage.token);
+		// this.cable = ActionCable.createConsumer("wss://echo.websocket.org/");
+		this.subscription = this.cable.subscriptions.create({channel: "MyChannel"}, {
+			connected: function() { console.log("cable: connected") },             // onConnect
+			disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
+			received: (data) => { console.log("cable received: ", data); }         // OnReceive
+		});
 	}
 
 	render () {
