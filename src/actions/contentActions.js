@@ -109,8 +109,8 @@ export function createPrompt(promptText) {
         })
         .then(response => dispatch(postPrompt(response.data)))
         .then(data => dispatch(selectPrompt(data.prompt.id)))
-        .then(action => dispatch(fetchRetorts(action.promptID)))
-        .then(() => dispatch(fetchPrompts()))
+        // .then(action => dispatch(fetchRetorts(action.promptID)))
+        // .then(() => dispatch(fetchPrompts()))
         .then(() => dispatch(newCurrPage(2)))
         .catch(error => dispatch(postPromptFailure(error)))
     }
@@ -130,7 +130,7 @@ export function createRetort(promptID, retortText) {
             }
         })
         .then(response => dispatch(postRetort(response.data)))
-        .then(data => dispatch(fetchRetorts(data.retort.prompt_id)))
+        // .then(data => dispatch(fetchRetorts(data.retort.prompt_id)))
         .catch(error => dispatch(postRetortFailure(error)))
     }
 }

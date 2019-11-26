@@ -12,11 +12,11 @@ const initialState = {
 function viewsReducer(state=initialState, action) {
     switch (action.type) {
         case NEW_CURR_PAGE:
-            let nextState = { 
+            return {
+                ...state,
                 indexLatest: action.prevIdx,
-                index: action.pageIdx,
-            };
-            return Object.assign({},state,nextState);
+                index: action.pageIdx
+            }
         default:
             return state;
     }
