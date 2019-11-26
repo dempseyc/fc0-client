@@ -63,15 +63,23 @@ class App extends Component {
 	}
 
 	componentDidMount() {
+		console.log('cdm');
 		this.initialFetch();
-		// console.log('token', localStorage.token);
 		this.cable = ActionCable.createConsumer("ws://localhost:3001/cable", localStorage.token);
-		// this.cable = ActionCable.createConsumer("wss://echo.websocket.org/");
 		this.subscription = this.cable.subscriptions.create({channel: "MyChannel"}, {
 			connected: function() { console.log("cable: connected") },             // onConnect
 			disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
 			received: (data) => { console.log("cable received: ", data); }         // OnReceive
 		});
+	}
+
+	componentWillUnmount() {
+		console.log('cwu');
+		this.cable.subscriptions.remove(this.subscription);
+		// taken as data in server in receive
+		// this.subscription.send('hello world');
+		// taken as method and args in server in method
+		// this.subscription.perform('method_name', arguments);
 	}
 
 	render () {
