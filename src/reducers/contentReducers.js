@@ -43,8 +43,7 @@ function allPrompts(
     case POST_PROMPT:
       return {
         ...state,
-        isFetching: false,
-        items: state.items.concat([action.prompt])
+        isFetching: true,
       }
     default:
       return state

@@ -11,6 +11,7 @@ import SwiperPage from '../components/SwiperPage';
 import { newCurrPage } from '../actions/viewsActions';
 
 import { fetchUsers, fetchUser } from '../actions/userActions';
+import { handleReceived } from '../actions/messageActions';
 
 import ActionCable from 'action-cable-react-jwt';
 
@@ -69,7 +70,10 @@ class App extends Component {
 		this.subscription = this.cable.subscriptions.create({channel: "MyChannel"}, {
 			connected: function() { console.log("cable: connected") },             // onConnect
 			disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
-			received: (data) => { console.log("cable received: ", data); }         // OnReceive
+			received: (data) => {
+				this.props.dispatch(handleReceived(data));
+				console.log("cable received: ", data); 
+				}         // OnReceive
 		});
 	}
 
