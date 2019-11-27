@@ -10,14 +10,14 @@ function receiveChat (message) {
     }
 }
 
-export function handleReceived (message) {
+export function handleReceived (message, myname) {
     return function (dispatch) {
         switch (message.meta) {
             case 'revalidate':
                 let tags = message.body.split(" ");
-                if (tags.length === 2) {
+                if (tags.length === 2 && message.sender !== myname) {
                     dispatch(fetchRetorts(tags[1]));
-                } else {
+                } else if (message.sender !== myname) {
                     dispatch(fetchPrompts());
                 }
                 break;

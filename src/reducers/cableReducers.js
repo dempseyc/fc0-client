@@ -1,10 +1,10 @@
-import { RECEIVE_CHAT } from '../actions/messageActions'
+import { RECEIVE_CHAT } from '../actions/cableActions'
 
 const initialState = {
     items: []
 }
 
-function messageReducer(state=initialState, action) {
+function cableReducer(state=initialState, action) {
     switch (action.type) {
         case RECEIVE_CHAT:
             return {
@@ -16,4 +16,4 @@ function messageReducer(state=initialState, action) {
     }
 }
 
-export default messageReducer
+export default cableReducer

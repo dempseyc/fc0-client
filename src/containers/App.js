@@ -11,7 +11,7 @@ import SwiperPage from '../components/SwiperPage';
 import { newCurrPage } from '../actions/viewsActions';
 
 import { fetchUsers, fetchUser } from '../actions/userActions';
-import { handleReceived } from '../actions/messageActions';
+import { handleReceived } from '../actions/cableActions';
 
 import ActionCable from 'action-cable-react-jwt';
 
@@ -71,9 +71,11 @@ class App extends Component {
 			connected: function() { console.log("cable: connected") },             // onConnect
 			disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
 			received: (data) => {
-				this.props.dispatch(handleReceived(data));
+				this.props.dispatch(handleReceived(data, this.props.username));
 				console.log("cable received: ", data); 
-				}         // OnReceive
+				},
+			      // OnReceive
+			
 		});
 	}
 

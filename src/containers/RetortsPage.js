@@ -48,7 +48,7 @@ class RetortsPage extends Component {
                 item={myPrompt}
                 type='Prompt'
                 classes={['clickable-text','prompt-header']}
-                click={target.handleOpen}
+                // click={target.handleOpen}
             />
         )};
 

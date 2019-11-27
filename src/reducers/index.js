@@ -2,10 +2,10 @@ import { combineReducers } from 'redux'
 import contentReducer from './contentReducers'
 import viewsReducer from './viewsReducers'
 import userReducer from './userReducers'
-import messageReducer from './messageReducers'
+import cableReducer from './cableReducers'
 
 export default combineReducers({
-  messageReducer,
+  cableReducer,
   contentReducer,
   viewsReducer,
   userReducer

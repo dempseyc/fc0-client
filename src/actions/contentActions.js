@@ -107,6 +107,7 @@ export function createPrompt(promptText) {
               'Authorization': `Bearer ${localStorage.token}`
             }
         })
+
         .then(response => dispatch(postPrompt(response.data)))
         .then(data => dispatch(selectPrompt(data.prompt.id)))
         .then(action => dispatch(fetchRetorts(action.promptID)))
@@ -153,8 +154,8 @@ export function editRetort(promptID, retortID, newText) {
 
 export function editPrompt(promptID, newText) {
     return function (dispatch) {
-        const url = `${API_URL}api/prompts/${promptID}/?text=${newText}`;
-        return axios.put(url, {}, {
+        const url = `${API_URL}api/prompts/${promptID}`;
+        return axios.put(url, {text: newText}, {
             headers: {
               'Content-Type': 'application/json',
               Accept: 'application/json',
