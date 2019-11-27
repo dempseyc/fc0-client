@@ -1,6 +1,8 @@
 import { fetchRetorts, fetchPrompts } from './contentActions'
 
 export const RECEIVE_CHAT = "RECEIVE_CHAT";
+export const CREATE_SUBSCRIPTION = "CREATE_SUBSCRIPTION";
+
 
 function receiveChat (message) {
     return {
