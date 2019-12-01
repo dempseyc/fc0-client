@@ -1,14 +1,35 @@
 import { fetchRetorts, fetchPrompts } from './contentActions'
 
 export const RECEIVE_CHAT = "RECEIVE_CHAT";
-export const CREATE_SUBSCRIPTION = "CREATE_SUBSCRIPTION";
+export const HANDLE_CONNECTED = "HANDLE_CONNECTED";
+export const HANDLE_DISCONNECTED = "HANDLE_DISCONNECTED";
+export const STORE_SUBSCRIPTION = "STORE_SUBSCRIPTION";
 
 
 function receiveChat (message) {
     return {
         type: RECEIVE_CHAT,
         sender: message.sender,
-        text: message.body
+        body: message.body
+    }
+}
+
+export function handleConnected () {
+    return {
+        type: HANDLE_CONNECTED
+    }
+}
+
+export function handleDisconnected() {
+    return {
+        type: HANDLE_DISCONNECTED
+    }
+}
+
+export function storeSubscription (subscription) {
+    return {
+        type: STORE_SUBSCRIPTION,
+        subscription: subscription
     }
 }
 
@@ -29,5 +50,9 @@ export function handleReceived (message, myname) {
                 break;
         }
     }
+}
 
+export function broadcastChat (subscription, message, myname) {
+    const params = { meta: "chat", body: message, sender: myname }
+    subscription.send(params);
 }

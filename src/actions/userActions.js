@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// import { subscribe, unsubscribe } from './cableActions';
+
 import { API_URL } from './API_URL'
 
 export const GET_USERS = 'GET_USERS';
@@ -14,6 +16,7 @@ export const POST_USER_SUCCESS = 'POST_USER_SUCCESS';
 export const POST_USER_FAILURE = 'POST_USER_FAILURE';
 
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 export const GET_USER = 'GET_USER';
 export const GET_USER_FAILURE = 'GET_USER_FAILURE';
@@ -174,7 +177,11 @@ export function fetchUser () {
                 }
             })
             .then(response => dispatch(getUserSuccess(response.data)))
-            .catch(error => dispatch(getUserFailure(error)))
+            .catch(error => {
+                dispatch(getUserFailure(error));
+                dispatch(logoutUser());
+                // dispatch(unsubscribe());
+            })
         }
     }
 }
@@ -201,19 +208,11 @@ function getUserSuccess (user) {
     }
 }
 
-export function logoutUser (username) {
-    return function (dispatch) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('id');
-        dispatch(resetUser(username));
-        dispatch(fetchUsers());
-    }
-}
-
-function resetUser (username) {
-    return{
-        type: RESET_USER,
-        username: username,
+export function logoutUser () {
+    localStorage.removeItem('token');
+    localStorage.removeItem('id');
+    return {
+        type: LOGOUT_USER
     }
 }
 

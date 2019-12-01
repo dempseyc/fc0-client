@@ -11,7 +11,7 @@ import {
     GET_USER,
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
-    RESET_USER
+    LOGOUT_USER
    } from '../actions/userActions';
 
 const initialState = {
@@ -48,19 +48,19 @@ function userReducer (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
-                messages: action.message,
+                messages: [action.message],
             }
         case USER_FOUND:
             return {
                 ...state,
                 user: {username: action.username},
-                messages: action.message
+                messages: [action.message]
             }
         case USER_NOT_FOUND:
             return {
                 ...state,
                 user: {username: action.username},
-                messages: action.message
+                messages: [action.message]
             }
         case GET_USER:
             return {
@@ -94,22 +94,24 @@ function userReducer (state = initialState, action) {
                 ...state,
                 user: initialState.user,
                 isFetching: false,
-                messages: action.type
+                messages: [action.type]
             }
-        case RESET_USER:
+        case LOGOUT_USER:
             return {
-                ...initialState,
-                user: {
-                    username: `${action.username} signed out`,
-                    loggedIn: false
-                }
+                ...state,
+                user: initialState.user,
+                messages: initialState.messages
             }
         case POST_USER_FAILURE:
         case GET_USER_FAILURE:
+            //// if payload.error.response.status = 401,
+            //// reset user, not logged in, 
+            //// remove cable subscription
             return {
                 ...state,
                 isFetching: false,
-                messages: action.payload.error.response ? action.payload.error.response.data.errors : ['no data']
+                payload: action.payload.error.response ? action.payload.error.response.data.errors : ['no error response'],
+                messages: ['no valid user : login / signup']
             }
         default:
             return state;

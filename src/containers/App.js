@@ -1,19 +1,26 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import '../styles/App.css';
-import '../styles/NavBar.css';
-import SwipeableViews from 'react-swipeable-views';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import '../styles/App.css'
+import '../styles/NavBar.css'
+import SwipeableViews from 'react-swipeable-views'
 
-import Header from '../components/Header';
-import NavBar from '../containers//NavBar';
-import SwiperPage from '../components/SwiperPage';
+import Header from '../components/Header'
+import NavBar from '../containers//NavBar'
+import SwiperPage from '../components/SwiperPage'
 
-import { newCurrPage } from '../actions/viewsActions';
+import { newCurrPage } from '../actions/viewsActions'
 
-import { fetchUsers, fetchUser } from '../actions/userActions';
-import { handleReceived } from '../actions/cableActions';
+import { fetchUsers, fetchUser } from '../actions/userActions'
+import { 
+	handleConnected, 
+	handleDisconnected,
+	broadcastChat,
+	storeSubscription, 
+	handleReceived } from '../actions/cableActions'
 
-import ActionCable from 'action-cable-react-jwt';
+import ActionCable from 'action-cable-react-jwt'
+
+import { CABLE_URL } from '../actions/API_URL'
 
 const viewsStyle = {
 	position: 'fixed',
@@ -32,7 +39,9 @@ class App extends Component {
 		super(props);
 		this.newCurrPage = this.newCurrPage.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
+		this.onConnect = this.onConnect.bind(this);
 		this.swiperPages = this.buildSwiperPages();
+
 	}
 
 	initialFetch () {
@@ -63,20 +72,25 @@ class App extends Component {
 		this.props.dispatch(newCurrPage(value, this.props.index));
 	}
 
+	onConnect () {
+		handleConnected();
+		broadcastChat(this.subscription,"HI!",this.props.username);
+	}
+
 	componentDidMount() {
 		console.log('cdm');
 		this.initialFetch();
-		this.cable = ActionCable.createConsumer("ws://localhost:3001/cable", localStorage.token);
+		this.cable = ActionCable.createConsumer(CABLE_URL, localStorage.token);
 		this.subscription = this.cable.subscriptions.create({channel: "MyChannel"}, {
-			connected: function() { console.log("cable: connected") },             // onConnect
-			disconnected: function() { console.log("cable: disconnected") },       // onDisconnect
+			connected: this.onConnect,             // onConnect
+			disconnected: handleDisconnected,       // onDisconnect
 			received: (data) => {
 				this.props.dispatch(handleReceived(data, this.props.username));
 				console.log("cable received: ", data); 
 				},
-			      // OnReceive
-			
 		});
+		storeSubscription(this.subscription);
+		// console.log("channell", JSON.parse(this.subscription.identifier).channel);
 	}
 
 	componentWillUnmount() {

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import ActionCable from 'action-cable-react-jwt'
 
-import ActionCable from 'action-cable-react-jwt';
+import { CABLE_URL } from '../actions/API_URL'
 
 class CableConnector extends Component {
 
@@ -13,7 +14,7 @@ class CableConnector extends Component {
     }
 
     ComponentDidMount () {
-        this.cable = ActionCable.createConsumer("ws://localhost:3001/cable", localStorage.token);
+        this.cable = ActionCable.createConsumer(CABLE_URL, localStorage.token);
             this.subscription = this.cable.subscriptions.create({channel: "MyChannel"}, {
                 connected: this.onConnect },             // onConnect
                 disconnected: this.onDisconnect },       // onDisconnect
