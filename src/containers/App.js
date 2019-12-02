@@ -73,8 +73,9 @@ class App extends Component {
 	}
 
 	onConnect () {
+		this.props.dispatch(storeSubscription(this.subscription));
+		broadcastChat(this.props.subscription,"HI!",this.props.username);
 		handleConnected();
-		broadcastChat(this.subscription,"HI!",this.props.username);
 	}
 
 	componentDidMount() {
@@ -89,7 +90,6 @@ class App extends Component {
 				console.log("cable received: ", data); 
 				},
 		});
-		storeSubscription(this.subscription);
 		// console.log("channell", JSON.parse(this.subscription.identifier).channel);
 	}
 
@@ -130,6 +130,7 @@ const mapStateToProps = state => ({
 	Retorts: state.contentReducer.retortsByPrompt,
 	user: state.userReducer.user,
 	username: state.userReducer.user.username,
+	subscription: state.cableReducer.subscription
 });
 
 export default connect(mapStateToProps)(App);
