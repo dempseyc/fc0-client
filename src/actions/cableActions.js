@@ -9,8 +9,7 @@ export const STORE_SUBSCRIPTION = "STORE_SUBSCRIPTION";
 function receiveChat (message) {
     return {
         type: RECEIVE_CHAT,
-        sender: message.sender,
-        body: message.body
+        message: message
     }
 }
 
@@ -53,6 +52,9 @@ export function handleReceived (message, myname) {
 }
 
 export function broadcastChat (subscription, message, myname) {
-    const params = { meta: "chat", body: message, sender: myname }
-    subscription.send(params);
+    return function (dispatch) {
+        const params = { meta: "chat", body: message, sender: myname }
+        subscription.send(params);
+        dispatch({type: 'SENT_CHAT_MESSAGE', payload: params });
+    }
 }

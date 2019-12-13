@@ -5,7 +5,7 @@ import DynamicPageHeader from '../containers/DynamicPageHeader';
 import PromptsPage from '../containers/PromptsPage';
 import UserPage from '../containers/UserPage';
 import RetortsPage from '../containers/RetortsPage';
-import FoamyPage from '../components/FoamyPage';
+import FoamyPage from '../containers/FoamyPage';
 import MorePage from '../components/MorePage';
 
 class Page extends Component {

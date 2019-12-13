@@ -75,7 +75,7 @@ class App extends Component {
 	onConnect () {
 		this.props.dispatch(storeSubscription(this.subscription));
 		broadcastChat(this.props.subscription,"HI!",this.props.username);
-		handleConnected();
+		this.props.dispatch(handleConnected());
 	}
 
 	componentDidMount() {
@@ -84,7 +84,7 @@ class App extends Component {
 		this.cable = ActionCable.createConsumer(CABLE_URL, localStorage.token);
 		this.subscription = this.cable.subscriptions.create({channel: "MyChannel"}, {
 			connected: this.onConnect,             // onConnect
-			disconnected: handleDisconnected,       // onDisconnect
+			disconnected: () => this.props.dispatch(handleDisconnected()),       // onDisconnect
 			received: (data) => {
 				this.props.dispatch(handleReceived(data, this.props.username));
 				console.log("cable received: ", data); 

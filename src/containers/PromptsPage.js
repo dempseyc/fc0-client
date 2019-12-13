@@ -15,7 +15,13 @@ import { newCurrPage } from '../actions/viewsActions';
 
 class PromptsPage extends Component {
 
-    async componentDidMount () {
+    // async componentWillMount () {
+    //     await this.props.dispatch(fetchPrompts());
+    //     await this.props.dispatch(selectPrompt(this.props.Prompts.items[0].id || this.props.selected));
+    //     await this.props.dispatch(fetchRetorts(this.props.selected));
+    // }
+
+        async componentWillMount () {
         await this.props.dispatch(fetchPrompts());
         await this.props.dispatch(selectPrompt(this.props.Prompts.items[0].id || this.props.selected));
         await this.props.dispatch(fetchRetorts(this.props.selected));

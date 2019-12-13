@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import Loading from '../components/Loading';
-import FCUserForm from '../components/FCUserForm';
-import UserDetails from '../components/UserDetails';
-import { loginUser, findUser, createUser } from '../actions/userActions';
+import Loading from '../components/Loading'
+import FCUserForm from '../components/FCUserForm'
+import UserDetails from '../components/UserDetails'
+import { loginUser, findUser, createUser } from '../actions/userActions'
 
 class UserPage extends Component {
 
