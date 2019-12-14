@@ -43,8 +43,13 @@ input[type=submit] {
     border: 1px solid white; 
 }
 
-.prompt-list, .retort-list {
-    max-height: 60vh;
+.prompt-list {
+    max-height: 57vh;
+    overflow-y: scroll;
+}
+
+.retort-list {
+    max-height: 50vh;
     overflow-y: scroll;
 }
 

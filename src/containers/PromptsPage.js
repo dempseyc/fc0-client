@@ -59,6 +59,7 @@ class PromptsPage extends Component {
                         } } 
                     /> ) 
                 ) : null;
+        
         return (
             <div className={'prompts'}>
                 { newFormButton }
