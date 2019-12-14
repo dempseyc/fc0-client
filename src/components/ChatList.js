@@ -3,16 +3,52 @@ import ChatListItem from '../components/ChatListItem'
 
 class ChatList extends Component {
 
+    scrollToBottom () {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    componentDidMount() {
+    this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+    this.scrollToBottom();
+    }
+
+    chatListEmpty () {
+        return (
+        <div className='chat-list-item'>...</div>
+        )
+    };
+    
+    chatListItems (items,userTable) {
+        return items.map( (item,i) => {
+            return (
+                <ChatListItem 
+                    key={i} 
+                    i={i} 
+                    id={userTable[item.sender]}
+                    username={item.sender} 
+                    text={item.body} 
+                />
+            )
+        });
+    }
+
     render (props) {
-        const { items } = this.props;
+        const { items, userTable } = this.props;
+
+        const list = (items.length>0) ? this.chatListItems(items,userTable) : this.chatListEmpty() ;
         console.log('items', items);
-        if (items.length>0) {
-            return items.map( (item,i) => {
-                return (<ChatListItem key={i} i={i} username={item.sender} text={item.body} />)
-            });
-        } else {
-            return <div>...</div>
-        }
+        return (
+            <div className='chat-list'>
+                {list}
+                <div 
+                    style={{ float:"left", clear: "both" }}
+                    ref={(el) => { this.messagesEnd = el; }}>
+                </div>
+            </div>
+        );
     }
 
 }

@@ -81,7 +81,10 @@ class RetortsPage extends Component {
                     />
                 )
             }) : null;
-            return blocks;
+            return ( <div className='retort-list'>
+                        {blocks}
+                    </div>
+            )
         }
 
         return (

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 
 class FCChatForm extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class FCChatForm extends Component {
         return (
             <form className="chat-form" onSubmit={this.handleSubmit}>
                 <input type="text" value={this.state.text} onChange={this.handleChangeTXT}/>
-                <input type="submit" value="->" />
+                <input type="submit" value='>'/>
             </form>
         )
     }

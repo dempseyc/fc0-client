@@ -2,6 +2,15 @@ import React from 'react';
 import '../styles/TextItem.css';
 
 const colors = {
+    Username_t_colors:
+        [
+            '#47ffff', '#9dffff',
+            '#d1ffff', '#f1ffff',
+            '#e6ffff', '#d8ffea',
+            '#e3ffe4', '#ffffff',
+            '#ffffff', '#fdffff',
+            '#baffff', '#47ffff'
+        ],
     Prompt_b_colors:
         [ 
             '#1f8585',
@@ -48,11 +57,21 @@ const FCTextItem = (props) => {
                 <div
                     className={props.classes.join(' ')}
                     style={{color:  colors.Retort_t_colors[props.t_color]}}
-                    // onClick={ props.click }
                 >
                     {props.text}
-                    {/* {props.UIchildren} */}
                 </div>
+            )
+        case 'Username':
+            let userColor = (props.id+colors.Username_t_colors.length) % colors.Username_t_colors.length;
+            return (
+                <>
+                    <span 
+                        className={props.classes.join(' ')}
+                        style={{color: colors.Username_t_colors[userColor]}}
+                    >
+                        {props.text}
+                    </span>
+                </>
             )
         default:
             return (

@@ -15,10 +15,10 @@ class FoamyPage extends Component {
     }
 
     render (props) {
-        const {chatItems} = this.props;
+        const {chatItems, userTable} = this.props;
         return (
             <div className='foamy'>
-                <ChatList items={chatItems} />
+                <ChatList items={chatItems} userTable={userTable} />
                 <FCChatForm handleSubmitChat={this.handleSubmitChat.bind(this)} />
             </div>
         )
@@ -28,6 +28,7 @@ class FoamyPage extends Component {
 
 const mapStateToProps = state => ({
     username: state.userReducer.user.username,
+    userTable: state.userReducer.users,
     chatItems: state.cableReducer.items,
     subscription: state.cableReducer.subscription
 });
