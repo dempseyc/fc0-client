@@ -4,7 +4,7 @@ const PageHeader = (props) => {
     const displayPageName = () => {
         switch (props.pageName) {
             case 'Prompts':
-                return 'Formulae';
+                return 'Foamulae';
                 // break;
             case 'Retorts':
                 return 'Lather';

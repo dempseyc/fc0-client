@@ -49,12 +49,8 @@ class NavBar extends Component {
                         style={ TabStyle }
                         className='NavLink' 
                         value={1}
-                        // icon={<BubbleChartOutlined/>}
-                        // icon={<HdrWeakOutlined/>}
-                        // icon={<GestureIcon/>}
-                        // icon={<AllInclusiveIcon/>}
                         icon={<ScatterPlotIcon/>}
-                        label="formulae"
+                        label="foamulae"
                         // label="Oo°"
                         />
                     <Tab 
