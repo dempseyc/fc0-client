@@ -8,7 +8,8 @@ import {
   POST_PROMPT,
   POST_RETORT,
   POST_LIKE_SUCCESS,
-  DELETE_LIKE_SUCCESS
+  DELETE_LIKE_SUCCESS,
+  INVALIDATE_RETORTS
 } from '../actions/contentActions'
 
 const initialState = {
@@ -56,6 +57,7 @@ function retorts (state = {}, action) {
       return {
         ...state,
         items: action.retorts,
+        didInvalidate: false
       }
     case POST_LIKE_SUCCESS:
     case DELETE_LIKE_SUCCESS:
@@ -69,6 +71,11 @@ function retorts (state = {}, action) {
       return {
         ...state,
         items: retortsWithNewLikes
+      }
+    case INVALIDATE_RETORTS:
+      return {
+        ...state,
+        didInvalidate: true
       }
     default:
       return state
@@ -96,6 +103,11 @@ function retortsByPrompt(state = initialState.retortsByPrompt, action) {
         }
       case POST_LIKE_SUCCESS:
       case DELETE_LIKE_SUCCESS:
+        return {
+          ...state,
+          [action.promptID]: retorts(state[action.promptID], action)
+        }
+      case INVALIDATE_RETORTS:
         return {
           ...state,
           [action.promptID]: retorts(state[action.promptID], action)

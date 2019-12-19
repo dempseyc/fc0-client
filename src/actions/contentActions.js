@@ -10,6 +10,7 @@ export const RECEIVE_PROMPTS = 'RECEIVE_PROMPTS'
 export const REQUEST_RETORTS = 'REQUEST_RETORTS'
 export const RECEIVE_RETORTS = 'RECEIVE_RETORTS'
 export const FETCH_RETORTS_FAILURE = 'FETCH_RETORTS_FAILURE'
+export const INVALIDATE_RETORTS = 'INVALIDATE_RETORTS'
 
 export const SELECT_PROMPT = 'SELECT_PROMPT'
 
@@ -91,6 +92,13 @@ export function fetchRetorts(promptID) {
         return axios.get(url)
         .then(json => dispatch(receiveRetorts(promptID, json.data)))
         .catch(error => dispatch(fetchRetortsFailure(promptID, error)))
+    }
+}
+
+export function invalidateRetorts(promptID) {
+    return {
+        type: INVALIDATE_RETORTS,
+        promptID: promptID
     }
 }
 

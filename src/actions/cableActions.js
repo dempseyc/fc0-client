@@ -1,4 +1,4 @@
-import { fetchRetorts, fetchPrompts } from './contentActions'
+import { fetchRetorts, fetchPrompts, invalidateRetorts } from './contentActions'
 
 import ActionCable from 'action-cable-react-jwt'
 
@@ -8,6 +8,7 @@ export const RECEIVE_CHAT = "RECEIVE_CHAT";
 export const HANDLE_CONNECTED = "HANDLE_CONNECTED";
 export const HANDLE_DISCONNECTED = "HANDLE_DISCONNECTED";
 export const STORE_SUBSCRIPTION = "STORE_SUBSCRIPTION";
+export const STORE_CABLE = "STORE_CABLE";
 
 
 export function afterConnect (subscription, username) {
@@ -60,6 +61,13 @@ function handleDisconnected() {
     }
 }
 
+export function storeCable (cable) {
+    return {
+        type: STORE_CABLE,
+        cable: cable
+    }
+}
+
 export function storeSubscription (subscription) {
     return {
         type: STORE_SUBSCRIPTION,
@@ -73,7 +81,7 @@ export function handleReceived (message, myname) {
             case 'revalidate':
                 let tags = message.body.split(" ");
                 if (tags.length === 2 && message.sender !== myname) {
-                    dispatch(fetchRetorts(tags[1]));
+                    dispatch(invalidateRetorts(tags[1]));
                 } else if (message.sender !== myname) {
                     dispatch(fetchPrompts());
                 }

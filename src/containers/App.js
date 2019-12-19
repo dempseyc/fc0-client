@@ -78,7 +78,7 @@ class App extends Component {
 
 	componentWillUnmount() {
 		console.log('cwu');
-		this.cable.subscriptions.remove(this.subscription);
+		this.props.cable.subscriptions.remove(this.props.subscription);
 		// taken as data in server in receive
 		// this.subscription.send('hello world');
 		// taken as method and args in server in method
@@ -113,7 +113,8 @@ const mapStateToProps = state => ({
 	Retorts: state.contentReducer.retortsByPrompt,
 	user: state.userReducer.user,
 	username: state.userReducer.user.username,
-	subscription: state.cableReducer.subscription
+	subscription: state.cableReducer.subscription,
+	cable: state.cableReducer.cable
 });
 
 export default connect(mapStateToProps)(App);

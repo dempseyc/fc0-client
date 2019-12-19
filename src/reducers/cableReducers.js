@@ -1,6 +1,7 @@
 import { 
     RECEIVE_CHAT,
-    STORE_SUBSCRIPTION
+    STORE_SUBSCRIPTION,
+    STORE_CABLE
 } from '../actions/cableActions'
 
 const initialState = {
@@ -14,6 +15,11 @@ function cableReducer(state=initialState, action) {
             return {
                 ...state,
                 items: [...state.items, action.message]
+            }
+        case STORE_CABLE:
+            return {
+                ...state,
+                cable: action.cable
             }
         case STORE_SUBSCRIPTION:
             return {

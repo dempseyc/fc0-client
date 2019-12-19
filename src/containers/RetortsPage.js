@@ -7,7 +7,8 @@ import FCTextItem from '../components/FCTextItem'
 import FCDialogEdit from '../containers/FCDialogEdit'
 import RetortBlock from '../components/RetortBlock'
 
-import { 
+import {
+    fetchRetorts,
     createRetort,
     editPrompt,
     editRetort,
@@ -21,9 +22,17 @@ class RetortsPage extends Component {
         return <Loading contentName={this.pageName}/>
     }
 
+    refetch (selected) {
+        this.props.dispatch(fetchRetorts(selected));
+        return true;
+    }
+
     render () {
         const { user, usersById, Prompts, selected, Retorts, views } = this.props;
         const fetching = (Prompts.isFetching || Retorts.isFetching || !Retorts[selected] || !selected);
+        if (!fetching) {
+            const revalidating = (Retorts[selected].didInvalidate) ? this.refetch(selected) : false;
+        }
         const myPrompt = (Array.isArray(this.props.Prompts.items)) ? this.props.Prompts.items.find(prompt => prompt.id === selected) : null;
         const newFormButton = (
             <FCDialogNew
