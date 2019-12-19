@@ -50,6 +50,7 @@ const FCTextItem = (props) => {
                     style={{backgroundColor:  colors.Prompt_b_colors[props.item ? props.item.b_color : 0]}}
                     onClick={ props.click }>
                 {props.item ? props.item.text : ""}
+                {props.children}
                 </div>
             )
         case 'Retort':

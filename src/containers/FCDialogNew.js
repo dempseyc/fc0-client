@@ -10,7 +10,7 @@ class FCDialogNew extends React.Component {
     constructor (props) {
         super(props);
         this.submit = (text) => { this.props.submit(text) };
-        switch(this.type) {
+        switch(this.props.type) {
             case 'Prompt':
                 this.color = 'primary';
                 break;
@@ -24,6 +24,8 @@ class FCDialogNew extends React.Component {
                 break;
         }
         this.placeholder = this.props.placeholder;
+        this.label = this.props.label;
+        this.type = this.props.type;
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleSubmitAndClose = this.handleSubmitAndClose.bind(this);
@@ -84,6 +86,7 @@ class FCDialogNew extends React.Component {
                 onClose={this.handleClose}
                 aria-labelledby='form-dialog-title'
                 fullWidth={true}
+                fullScreen={true}
             >
             <DialogContent>
                 <TextField
@@ -93,7 +96,9 @@ class FCDialogNew extends React.Component {
                     multiline={true}
                     autoFocus
                     margin='dense'
-                    id='prompt'
+                    id='filled-basic'
+                    helperText={this.props.helperText}
+                    // label={this.label}
                     // label={`new ${this.type}`}
                     type='text'
                 />

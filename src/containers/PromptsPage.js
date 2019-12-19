@@ -31,7 +31,9 @@ class PromptsPage extends Component {
                 key='newpromptbutton'
                 type={(user.loggedIn) ? 'Prompt' : 'Disabled'}
                 loggedIn={user.loggedIn}
-                placeholder="What's your formula?"
+                color='primary'
+                placeholder="What's your foamula?"
+                helperText="New Foamula: a prompt, setup, category, formula, or joke example"
                 goToLogin={ () => {
                     this.props.dispatch(newCurrPage(0,views.index));
                 }}
@@ -48,6 +50,7 @@ class PromptsPage extends Component {
                         type='Prompt'
                         classes={classes}
                         selected={(item.id===selected)?' selected':''}
+                        // children={[latherIndicator, newLatherIndicator]}
                         click={ () => {
                             this.props.dispatch(selectPrompt(item.id));
                             this.props.dispatch(fetchRetorts(item.id));
