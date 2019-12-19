@@ -12,7 +12,12 @@ import {
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
     LOGOUT_USER,
-   } from '../actions/userActions';
+   } from '../actions/userActions'
+
+import {
+    POST_PROMPT_FAILURE,
+    POST_RETORT_FAILURE,
+} from '../actions/contentActions'
 
 const initialState = {
     user: {username: 'sign in / create user', loggedIn: false },
@@ -81,6 +86,7 @@ function userReducer (state = initialState, action) {
                 isFetching: false,
                 messages: ['ready']
             }
+        
         case POST_USER:
             return {
                 ...state,
@@ -107,6 +113,8 @@ function userReducer (state = initialState, action) {
                 messages: initialState.messages
             }
         case POST_USER_FAILURE:
+        case POST_PROMPT_FAILURE:
+        case POST_RETORT_FAILURE:
         case GET_USER_FAILURE:
             //// if payload.error.response.status = 401,
             //// reset user, not logged in, 
@@ -114,6 +122,7 @@ function userReducer (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
+                user: initialState.user,
                 payload: action.payload.error.response ? action.payload.error.response.data.errors : ['no error response'],
                 messages: ['no valid user : login / signup']
             }
