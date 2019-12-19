@@ -49,24 +49,30 @@ class FCUserForm extends Component {
   
     render() {
         console.log('render of user form');
-        const emailInput = (this.props.createMode) ? (<label>
-            email:
-            <input type="text" value={this.state.email} onChange={this.handleChangeEM}/>
-            </label>) : null;
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                username:
-                <input type="text" value={this.state.username} onChange={this.handleChangeUN} onBlur={this.handleSubmitUsername}/>
-                </label>
-                <label>
-                password:
-                <input type="text" value={this.state.password} onChange={this.handleChangePW} />
-                </label>
-                {emailInput}
-                <input type="submit" value="Submit" />
-            </form>
-        );
+        if (this.props.serverOnline) {
+            const emailInput = (this.props.createMode) ? (<label>
+                email:
+                <input type="text" value={this.state.email} onChange={this.handleChangeEM}/>
+                </label>) : null;
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                    username:
+                    <input type="text" value={this.state.username} onChange={this.handleChangeUN} onBlur={this.handleSubmitUsername}/>
+                    </label>
+                    <label>
+                    password:
+                    <input type="text" value={this.state.password} onChange={this.handleChangePW} />
+                    </label>
+                    {emailInput}
+                    <input type="submit" value="Submit" />
+                </form>
+            );
+        } else {
+            return (
+                <div>Server Offline</div>
+            )
+        }
     }
 
 }

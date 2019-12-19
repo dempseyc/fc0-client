@@ -30,14 +30,14 @@ class UserPage extends Component {
     }
 
     render () {
-        const { messages, user, username } = this.props;
+        const { messages, user, username, serverOnline } = this.props;
         const ready = (messages[0] === 'ready');
-        // console.log(username, 'username');
         const userForm = (
             <FCUserForm 
                 submitUsername={this.submitUsername.bind(this)}
                 submitPassword={this.submitPassword.bind(this)} 
                 submitUserCreate={this.submitUserCreate.bind(this)}
+                serverOnline={serverOnline}
                 createMode={ username ? (username.split(' ')[0] === 'enter') : true }
             />
         )
@@ -54,7 +54,8 @@ const mapStateToProps = state => ({
     usernames: state.userReducer.users,
     username: state.userReducer.user.username,
     user: state.userReducer.user,
-    messages: state.userReducer.messages
+    messages: state.userReducer.messages,
+    serverOnline : state.userReducer.serverOnline
 });
 
 export default connect(mapStateToProps)(UserPage)

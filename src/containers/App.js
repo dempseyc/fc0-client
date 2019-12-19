@@ -11,16 +11,13 @@ import SwiperPage from '../components/SwiperPage'
 import { newCurrPage } from '../actions/viewsActions'
 
 import { fetchUsers, fetchUser } from '../actions/userActions'
-import { 
-	handleConnected, 
-	handleDisconnected,
+
+import {
 	broadcastChat,
-	storeSubscription, 
-	handleReceived } from '../actions/cableActions'
+	storeSubscription,
+	connectCable,
+	afterConnect } from '../actions/cableActions'
 
-import ActionCable from 'action-cable-react-jwt'
-
-import { CABLE_URL } from '../actions/API_URL'
 
 const viewsStyle = {
 	position: 'fixed',
@@ -39,14 +36,15 @@ class App extends Component {
 		super(props);
 		this.newCurrPage = this.newCurrPage.bind(this);
 		this.handleTabChange = this.handleTabChange.bind(this);
-		this.onConnect = this.onConnect.bind(this);
 		this.swiperPages = this.buildSwiperPages();
-
 	}
 
-	initialFetch () {
-		this.props.dispatch(fetchUsers());
-		this.props.dispatch(fetchUser());
+	async initialFetch () {
+		await this.props.dispatch(fetchUsers());
+		await this.props.dispatch(fetchUser());
+		await this.props.dispatch(connectCable(this.props.username));
+		await this.props.dispatch(afterConnect(this.props.subscription, this.props.username));
+		// await this.props.dispatch(broadcastChat(this.props.subscription,"HI!",this.props.username));
 	}
 
 	buildSwiperPages () {
@@ -59,6 +57,7 @@ class App extends Component {
 				pageIdx={i}
 				bgColor={c}
 				pageName={pageName}
+				onLogin={(pageName === 'User') ? this.onLogin : null}
 			/> )
 		});
 		return pages;
@@ -72,25 +71,9 @@ class App extends Component {
 		this.props.dispatch(newCurrPage(value, this.props.index));
 	}
 
-	onConnect () {
-		this.props.dispatch(storeSubscription(this.subscription));
-		broadcastChat(this.props.subscription,"HI!",this.props.username);
-		this.props.dispatch(handleConnected());
-	}
-
 	componentDidMount() {
 		console.log('cdm');
 		this.initialFetch();
-		this.cable = ActionCable.createConsumer(CABLE_URL, localStorage.token);
-		this.subscription = this.cable.subscriptions.create({channel: "MyChannel"}, {
-			connected: this.onConnect,             // onConnect
-			disconnected: () => this.props.dispatch(handleDisconnected()),       // onDisconnect
-			received: (data) => {
-				this.props.dispatch(handleReceived(data, this.props.username));
-				console.log("cable received: ", data); 
-				},
-		});
-		// console.log("channell", JSON.parse(this.subscription.identifier).channel);
 	}
 
 	componentWillUnmount() {

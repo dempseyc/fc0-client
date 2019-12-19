@@ -8,7 +8,8 @@ class RetortBlock extends React.Component {
 
         return (
             <div className={'retort-block'}>
-                <FCTextItem 
+                <FCTextItem
+                    key={'retort-text'+item.id} 
                     classes={['retort-text']}
                     type={'Retort'}
                     text={item.text}

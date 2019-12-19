@@ -15,16 +15,12 @@ import { newCurrPage } from '../actions/viewsActions';
 
 class PromptsPage extends Component {
 
-    // async componentWillMount () {
-    //     await this.props.dispatch(fetchPrompts());
-    //     await this.props.dispatch(selectPrompt(this.props.Prompts.items[0].id || this.props.selected));
-    //     await this.props.dispatch(fetchRetorts(this.props.selected));
-    // }
-
-    async componentWillMount () {
+    async componentDidMount () {
         await this.props.dispatch(fetchPrompts());
-        await this.props.dispatch(selectPrompt(this.props.Prompts.items[0].id || this.props.selected || 0));
-        await this.props.dispatch(fetchRetorts(this.props.selected));
+        if (this.props.Prompts.items.length>0) {
+            await this.props.dispatch(selectPrompt(this.props.Prompts.items[0].id || this.props.selected || 0));
+            await this.props.dispatch(fetchRetorts(this.props.selected));
+        }
     }
 
     render () {

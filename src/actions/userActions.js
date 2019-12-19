@@ -1,12 +1,15 @@
-import axios from 'axios';
+import axios from 'axios'
 
-// import { subscribe, unsubscribe } from './cableActions';
+// import { subscribe, unsubscribe } from './cableActions'
+import { newCurrPage } from './viewsActions'
 
 import { API_URL } from './API_URL'
 
 export const GET_USERS = 'GET_USERS';
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
+
+export const SERVER_NOT_CONNECTED = 'SERVER_NOT_CONNECTED';
 
 export const USER_FOUND = 'USER_FOUND';
 export const USER_NOT_FOUND = 'USER_NOT_FOUND';
@@ -39,7 +42,10 @@ export function fetchUsers () {
         .then(response => {
             dispatch(getUsersSuccess(response.data));
         })
-        .catch(error => dispatch(getUsersFailure(error)))
+        .catch(error => {
+            dispatch(getUsersFailure(error));
+            dispatch(newCurrPage(0));
+        })
     }
 }
 
@@ -60,7 +66,8 @@ function getUsersSuccess (users) {
 function getUsersFailure (error) {
     return {
         type: GET_USERS_FAILURE,
-        message: 'get users failure'
+        username: 'server error, try reloading',
+        message: 'not connected to server'
     }
 }
 

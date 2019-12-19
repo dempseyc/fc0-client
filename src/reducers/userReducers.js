@@ -11,12 +11,13 @@ import {
     GET_USER,
     GET_USER_SUCCESS,
     GET_USER_FAILURE,
-    LOGOUT_USER
+    LOGOUT_USER,
    } from '../actions/userActions';
 
 const initialState = {
     user: {username: 'sign in / create user', loggedIn: false },
     isFetching: false,
+    serverOnline: false,
     users: {},
     usersById: {},
     messages: ['no messages']
@@ -41,6 +42,7 @@ function userReducer (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
+                serverOnline: true,
                 users: action.users,
                 usersById: flipKeyValue(action.users)
             }
@@ -48,6 +50,8 @@ function userReducer (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
+                user: {...state.user, username: 'sorry', loggedIn: false, isFetching: false},
+                serverOnline: false,
                 messages: [action.message],
             }
         case USER_FOUND:

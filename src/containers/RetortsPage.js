@@ -54,7 +54,7 @@ class RetortsPage extends Component {
 
         const promptEditDialog = (
                 <FCDialogEdit
-                    key='prompt'
+                    key={'prompt'}
                     type='Prompt'
                     item={myPrompt}
                     classes={['prompt', 'prompt-header']}
@@ -67,7 +67,8 @@ class RetortsPage extends Component {
         );
 
         function retortBlocks () {
-            const blocks = Array.isArray(Retorts[selected].items) ? Retorts[selected].items.map( (item) => {
+            const blocks = (Retorts[selected].items.length > 0) ? Retorts[selected].items.map( (item) => {
+            // const blocks = Array.isArray(Retorts[selected].items) ? Retorts[selected].items.map( (item) => {
                 let myLike = user ? item.likes.find((like)=>like.user_id===user.id) : null;
                 let likedByMe = myLike ? true : false;
                 return (
