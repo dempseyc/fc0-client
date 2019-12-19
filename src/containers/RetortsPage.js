@@ -54,7 +54,7 @@ class RetortsPage extends Component {
         function promptHeaderButton (target) {
             return (
             <FCTextItem
-                key='promptheader'
+                key={'promptheader'}
                 item={myPrompt}
                 type='Prompt'
                 classes={['clickable-text','prompt-header']}
@@ -92,7 +92,7 @@ class RetortsPage extends Component {
                     />
                 )
             }) : null;
-            return ( <div className='retort-list'>
+            return ( <div key={'retort-blocks'+selected} className='retort-list'>
                         {blocks}
                     </div>
             )

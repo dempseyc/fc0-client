@@ -5,8 +5,15 @@ body {
   font-size: 20px;
 }
 
+
 .App {
   // position: fixed;
+  padding:
+    env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left);
+
   top: 0;
   left: 0;
   text-align: center;

@@ -24,7 +24,7 @@ class FCChatForm extends Component {
     render() {
         return (
             <form className="chat-form" onSubmit={this.handleSubmit}>
-                <input type="text" value={this.state.text} onChange={this.handleChangeTXT}/>
+                <input type="text" value={this.state.text} onChange={this.handleChangeTXT} required/>
                 <input type="submit" value='>'/>
             </form>
         )
