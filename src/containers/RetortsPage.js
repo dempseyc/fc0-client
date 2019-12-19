@@ -76,11 +76,11 @@ class RetortsPage extends Component {
                 />
         );
 
-        function retortBlocks () {
-            const blocks = (Retorts[selected].items.length > 0) ? Retorts[selected].items.map( (item) => {
-            // const blocks = Array.isArray(Retorts[selected].items) ? Retorts[selected].items.map( (item) => {
-                let myLike = user ? item.likes.find((like)=>like.user_id===user.id) : null;
-                let likedByMe = myLike ? true : false;
+        function retortBlocks (Retorts,selected) {
+            let blocks = (Retorts[selected].items.length > 0) ? Retorts[selected].items.map( (item) => {
+                let myLike = user ? item.likes.find((like)=>like.user_id===user.id) : undefined;
+                let likedByMe = (!myLike) ? false : true;
+                // console.log('liked',likedByMe);
                 return (
                     <RetortBlock
                         key={item.id}
@@ -100,7 +100,7 @@ class RetortsPage extends Component {
 
         return (
             <div className={'retorts'}>
-                {(!fetching) ? [promptEditDialog, newFormButton, retortBlocks()] : this.contentLoading()}
+                {(!fetching) ? [promptEditDialog, newFormButton, retortBlocks(Retorts,selected)] : this.contentLoading()}
             </div>
         )
     }

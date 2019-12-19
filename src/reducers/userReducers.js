@@ -80,6 +80,7 @@ function userReducer (state = initialState, action) {
             return {
                 ...state,
                 user: {
+                    id: action.user.id,
                     username: action.user.username,
                     loggedIn: true
                 },
