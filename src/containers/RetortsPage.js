@@ -40,7 +40,7 @@ class RetortsPage extends Component {
                 type={(user.loggedIn) ? 'Retort': 'Disabled'}
                 loggedIn={user.loggedIn}
                 placeholder="Lather it up!"
-                helperText={`New Lather: Your response to ${myPrompt ? myPrompt.text: '...'}`}
+                helperText={`New Lather: Your response to "${myPrompt ? myPrompt.text: '...'}"`}
                 goToLogin={ () => {
                     this.props.dispatch(newCurrPage(0,views.index));
                 }}

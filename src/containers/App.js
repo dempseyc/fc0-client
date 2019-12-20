@@ -65,7 +65,9 @@ class App extends Component {
 	}
 
 	newCurrPage (index) {
-		this.props.dispatch(newCurrPage(index, this.props.index));
+		if (this.props.index !== index) {
+			this.props.dispatch(newCurrPage(index, this.props.index));
+		}
 	}
 
 	handleTabChange (event, value) {

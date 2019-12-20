@@ -79,6 +79,12 @@ const theme = createMuiTheme({
       fullWidth: {
         minWidth: '0'
       }
+    },
+    MuiDialogActions: {
+      root: {
+        margin: '8px 10px',
+        marginBottom: '40px'
+      }
     }
   }
 });
