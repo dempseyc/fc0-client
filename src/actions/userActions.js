@@ -187,12 +187,12 @@ export function fetchUser () {
             })
             .then(response => {
                 dispatch(getUserSuccess(response.data));
+                dispatch(unsubscribe());
                 dispatch(connectCable(response.data.username));
             })
             .catch(error => {
                 dispatch(getUserFailure(error));
                 dispatch(logoutUser());
-                // dispatch(unsubscribe());
             })
         }
     }

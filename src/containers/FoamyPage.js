@@ -10,8 +10,8 @@ import { broadcastChat } from '../actions/cableActions'
 class FoamyPage extends Component {
 
     handleSubmitChat (text) {
-        const {subscription, username} = this.props;
-        this.props.dispatch(broadcastChat(subscription,text,username));
+        const {subscription, user} = this.props;
+        this.props.dispatch(broadcastChat(subscription,text,user));
     }
 
     render (props) {
@@ -27,7 +27,7 @@ class FoamyPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    username: state.userReducer.user.username,
+    user: state.userReducer.user,
     userTable: state.userReducer.users,
     chatItems: state.cableReducer.items,
     subscription: state.cableReducer.subscription

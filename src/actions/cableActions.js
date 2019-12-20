@@ -1,4 +1,5 @@
 import { fetchRetorts, fetchPrompts, invalidateRetorts } from './contentActions'
+import { newCurrPage } from './viewsActions'
 
 import ActionCable from 'action-cable-react-jwt'
 
@@ -12,11 +13,12 @@ export const STORE_CABLE = "STORE_CABLE";
 export const UNSUBSCRIBE = "UNSUBSCRIBE";
 
 
-export function afterConnect (subscription, username) {
+export function afterConnect (cable,subscription,user) {
     return (dispatch) => {
+        dispatch(storeCable(cable));
         dispatch(storeSubscription(subscription));
         // also doesn't work without dispatch
-        // dispatch(broadcastChat(subscription,"HI!",username));
+        // dispatch(broadcastChat(subscription,"HI!",user));
     }
 }
 
@@ -27,39 +29,28 @@ export function afterConnect (subscription, username) {
 //     }
 // }
 
-export function connectCable (username) {
+export function connectCable (user) {
     return (dispatch) => {
         let cable = ActionCable.createConsumer(CABLE_URL, localStorage.token);
         let subscription = cable.subscriptions.create({channel: "MyChannel"}, {
             connected: dispatch(handleConnected()),             // onConnect
             disconnected: dispatch(handleDisconnected()),       // onDisconnect
             received: (data) => {
-                dispatch(handleReceived(data, username));
-                console.log("cable received: ", data);
+                dispatch(handleReceived(data, user.username));
+                // console.log("cable received: ", data);
                 },
         });
-        // dispatch(storeSubscription(subscription));
-        dispatch(afterConnect(subscription,username));
-        // work here?
-        dispatch(broadcastChat(subscription,"HI!",username));
+        dispatch(afterConnect(cable,subscription,user));
+        // dispatch(broadcastChat(subscription,"HI!",user));
     }
     // console.log("channell", JSON.parse(this.subscription.identifier).channel);
 }
 
-export function unsubscribe (cable, subscription) {
-    if(cable) {
-        cable.subscriptions.remove(subscription);
-        return {
-            type: UNSUBSCRIBE,
-            subscriptions: cable.subscriptions
-        }
-    } else {
-        return {
-            type: UNSUBSCRIBE,
-            subscriptions: null
-        }
+export function unsubscribe () {
+    return {
+        type: UNSUBSCRIBE,
+        subscriptions: null
     }
-
 }
 
 function receiveChat (message) {
@@ -114,12 +105,17 @@ export function handleReceived (message, myname) {
     }
 }
 
-export function broadcastChat (subscription, message, myname) {
+export function broadcastChat (subscription, message, user) {
     return function (dispatch) {
-        const params = { meta: "chat", body: message, sender: myname }
-        // not sending when called from afterConnect... something async
-        // console.log('subscription', subscription);
-        subscription.send(params);
-        // dispatch({type: 'SENT_CHAT_MESSAGE', payload: params });
+        if (user.loggedIn) {
+            const params = { meta: "chat", body: message, sender: user.username }
+            // not sending when called from afterConnect... something async
+            // console.log('subscription', subscription);
+            subscription.send(params);
+            // dispatch({type: 'SENT_CHAT_MESSAGE', payload: params });
+        } else {
+            dispatch(handleReceived({meta:"chat", body:"must login to chat",sender:"ERROR"}));
+            dispatch(newCurrPage(0,3));
+        }
     }
 }

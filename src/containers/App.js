@@ -44,8 +44,6 @@ class App extends Component {
 		await this.props.dispatch(fetchUsers());
 		await this.props.dispatch(fetchUser());
 		await this.props.dispatch(connectCable(this.props.username));
-		// await this.props.dispatch(afterConnect(this.props.subscription, this.props.username));
-		// await this.props.dispatch(broadcastChat(this.props.subscription,"HI!",this.props.username));
 	}
 
 	buildSwiperPages () {
@@ -81,7 +79,7 @@ class App extends Component {
 
 	componentWillUnmount() {
 		console.log('cwu');
-		unsubscribe(this.props.cable, this.props.subscription);
+		unsubscribe();
 		// this.props.cable.subscriptions.remove(this.props.subscription);
 		// taken as data in server in receive
 		// this.subscription.send('hello world');
