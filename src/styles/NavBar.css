@@ -1,6 +1,6 @@
 .NavBar {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   left: 0;
   min-height: 5vh;
   min-width: 100vw;

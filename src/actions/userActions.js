@@ -46,7 +46,7 @@ export function fetchUsers () {
         })
         .catch(error => {
             dispatch(getUsersFailure(error));
-            dispatch(newCurrPage(0));
+            dispatch(newCurrPage(0,1));
         })
     }
 }
