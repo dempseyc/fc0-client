@@ -9,8 +9,8 @@ const DynamicPageHeader = (props) => {
     const logoutButton = () => (
         <Button onClick={()=> {
             props.dispatch(logoutUser(props.username));
-            props.dispatch(unsubscribe(props.cable,props.subscription));  
-            props.dispatch(connectCable());  
+            props.dispatch(unsubscribe(props.cable,props.subscription));
+            props.dispatch(connectCable());
                 }} variant='contained' color='primary'>
             SIGN OUT
         </Button>

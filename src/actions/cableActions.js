@@ -9,6 +9,7 @@ export const HANDLE_CONNECTED = "HANDLE_CONNECTED";
 export const HANDLE_DISCONNECTED = "HANDLE_DISCONNECTED";
 export const STORE_SUBSCRIPTION = "STORE_SUBSCRIPTION";
 export const STORE_CABLE = "STORE_CABLE";
+export const UNSUBSCRIBE = "UNSUBSCRIBE";
 
 
 export function afterConnect (subscription, username) {
@@ -37,7 +38,7 @@ export function connectCable (username) {
                 console.log("cable received: ", data);
                 },
         });
-        dispatch(storeSubscription(subscription));
+        // dispatch(storeSubscription(subscription));
         dispatch(afterConnect(subscription,username));
         // work here?
         dispatch(broadcastChat(subscription,"HI!",username));
@@ -46,7 +47,19 @@ export function connectCable (username) {
 }
 
 export function unsubscribe (cable, subscription) {
-    cable.subscriptions.remove(subscription);
+    if(cable) {
+        cable.subscriptions.remove(subscription);
+        return {
+            type: UNSUBSCRIBE,
+            subscriptions: cable.subscriptions
+        }
+    } else {
+        return {
+            type: UNSUBSCRIBE,
+            subscriptions: null
+        }
+    }
+
 }
 
 function receiveChat (message) {
