@@ -2,11 +2,16 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions/userActions';
+import { connectCable, unsubscribe } from '../actions/cableActions';
 
 const DynamicPageHeader = (props) => {
 
     const logoutButton = () => (
-        <Button onClick={()=> props.dispatch(logoutUser(props.username))} variant='contained' color='primary'>
+        <Button onClick={()=> {
+            props.dispatch(logoutUser(props.username));
+            props.dispatch(unsubscribe(props.cable,props.subscription));  
+            props.dispatch(connectCable());  
+                }} variant='contained' color='primary'>
             SIGN OUT
         </Button>
     );
@@ -25,7 +30,9 @@ const DynamicPageHeader = (props) => {
 }
 
 const mapStateToProps = state => ({
-    username: state.userReducer.user.username
+    username: state.userReducer.user.username,
+    cable: state.cableReducer.cable,
+    subscription: state.cableReducer.subscription
 });
 
 export default connect(mapStateToProps)(DynamicPageHeader)

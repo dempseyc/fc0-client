@@ -3,6 +3,8 @@ import axios from 'axios'
 // import { subscribe, unsubscribe } from './cableActions'
 import { newCurrPage } from './viewsActions'
 
+import { connectCable, unsubscribe } from './cableActions'
+
 import { API_URL } from './API_URL'
 
 export const GET_USERS = 'GET_USERS';
@@ -183,7 +185,10 @@ export function fetchUser () {
                   'Authorization': `Bearer ${token}`
                 }
             })
-            .then(response => dispatch(getUserSuccess(response.data)))
+            .then(response => {
+                dispatch(getUserSuccess(response.data));
+                dispatch(connectCable(response.data.username));
+            })
             .catch(error => {
                 dispatch(getUserFailure(error));
                 dispatch(logoutUser());

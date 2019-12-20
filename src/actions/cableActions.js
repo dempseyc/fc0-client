@@ -15,7 +15,7 @@ export function afterConnect (subscription, username) {
     return (dispatch) => {
         dispatch(storeSubscription(subscription));
         // also doesn't work without dispatch
-        dispatch(broadcastChat(subscription,"HI!",username));
+        // dispatch(broadcastChat(subscription,"HI!",username));
     }
 }
 
@@ -38,8 +38,15 @@ export function connectCable (username) {
                 },
         });
         dispatch(storeSubscription(subscription));
+        dispatch(afterConnect(subscription,username));
+        // work here?
+        dispatch(broadcastChat(subscription,"HI!",username));
     }
     // console.log("channell", JSON.parse(this.subscription.identifier).channel);
+}
+
+export function unsubscribe (cable, subscription) {
+    cable.subscriptions.remove(subscription);
 }
 
 function receiveChat (message) {

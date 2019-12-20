@@ -18,8 +18,8 @@ class FoamyPage extends Component {
         const {chatItems, userTable} = this.props;
         return (
             <div className='foamy'>
-                <ChatList items={chatItems} userTable={userTable} />
                 <FCChatForm handleSubmitChat={this.handleSubmitChat.bind(this)} />
+                <ChatList items={chatItems} userTable={userTable} />
             </div>
         )
     }

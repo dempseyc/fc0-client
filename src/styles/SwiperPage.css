@@ -41,6 +41,7 @@ input[type=submit] {
   overflow-y: scroll; }
 
 .chat-list {
+  padding-top: 1rem;
   max-height: 60vh;
   min-height: 65vh;
   overflow-y: scroll; }
@@ -50,7 +51,6 @@ input[type=submit] {
   text-align: left; }
 
 .chat-form {
-  position: absolute;
   display: flex;
   width: 95vw;
   left: 0;
@@ -59,8 +59,8 @@ input[type=submit] {
 .chat-form input[type=text] {
   margin: 0;
   flex-basis: 85%;
-  font-family: 'Josefin Slab', serif;
-  font-size: 1rem;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-size: 1em;
   color: #ddddcc;
   border: 5px solid #ddddcc;
   padding: 2px;
