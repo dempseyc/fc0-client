@@ -20,12 +20,12 @@ import {
 } from '../actions/contentActions'
 
 const initialState = {
-    user: {username: 'sign in / create user', loggedIn: false },
+    user: {username: '', found: false, loggedIn: false },
     isFetching: false,
     serverOnline: false,
     users: {},
     usersById: {},
-    messages: ['no messages']
+    messages: ['sign in or create user']
 };
 
 function flipKeyValue (lookupObj) {
@@ -55,20 +55,20 @@ function userReducer (state = initialState, action) {
             return {
                 ...state,
                 isFetching: false,
-                user: {...state.user, username: 'sorry', loggedIn: false, isFetching: false},
+                user: {...state.user, username: '', loggedIn: false, isFetching: false},
                 serverOnline: false,
                 messages: [action.message],
             }
         case USER_FOUND:
             return {
                 ...state,
-                user: {username: action.username},
+                user: {...state.user, username: action.username, found: true},
                 messages: [action.message]
             }
         case USER_NOT_FOUND:
             return {
                 ...state,
-                user: {username: action.username},
+                user: {...state.user, username: action.username, found: false},
                 messages: [action.message]
             }
         case GET_USER:
@@ -80,6 +80,7 @@ function userReducer (state = initialState, action) {
             return {
                 ...state,
                 user: {
+                    ...state.user,
                     id: action.user.id,
                     username: action.user.username,
                     loggedIn: true

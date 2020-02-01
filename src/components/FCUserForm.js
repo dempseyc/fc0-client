@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
 class FCUserForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            scrollTo: 0,
             username: '',
             email: '',
             password: ''
@@ -16,6 +18,12 @@ class FCUserForm extends Component {
         this.handleSubmitCreate = this.handleSubmitCreate.bind(this);
         
         this.handleSubmit = this.handleSubmit.bind(this);
+
+        // this.scrollTo = this.scrollTo.bind(this);
+    }
+
+    scrollTo(node) {
+        node.scrollIntoView();
     }
   
     handleChangeUN(event) {
@@ -32,6 +40,9 @@ class FCUserForm extends Component {
 
     handleSubmitUsername() {
         this.props.submitUsername(this.state.username);
+        this.setState({
+            scrollTo: this.state.scrollTo+1
+        })
     }
 
     handleSubmitPassword() {
@@ -45,7 +56,19 @@ class FCUserForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         (this.props.createMode) ? this.handleSubmitCreate() : this.handleSubmitPassword();
-    } 
+    }
+
+    // componentDidMount() {
+    //     const scrollTos = (this.props.createMode) ? ['un','em','pw'] : ['un','pw']
+    //     const node = document.getElementById(scrollTos[this.state.scrollTo])
+    //     this.scrollTo(node);
+    // }
+
+    // componentDidUpdate() {
+    //     const scrollTos = (this.props.createMode) ? ['un','em','pw'] : ['un','pw']
+    //     const node = document.getElementById(scrollTos[this.state.scrollTo])
+    //     this.scrollTo(node);
+    // }
   
     render() {
         console.log('render of user form');
@@ -55,18 +78,20 @@ class FCUserForm extends Component {
                 <input type="text" value={this.state.email} onChange={this.handleChangeEM}/>
                 </label>) : null;
             return (
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                    username:
-                    <input type="text" value={this.state.username} onChange={this.handleChangeUN} onBlur={this.handleSubmitUsername}/>
-                    </label>
-                    <label>
-                    password:
-                    <input type="text" value={this.state.password} onChange={this.handleChangePW} />
-                    </label>
-                    {emailInput}
-                    <input type="submit" value="Submit" />
-                </form>
+                <div className="user-form">
+                    <form onSubmit={this.handleSubmit}>
+                        <label id='un'>
+                        username:
+                        <input type="text" value={this.state.username} onChange={this.handleChangeUN} onBlur={this.handleSubmitUsername}/>
+                        </label>
+                        {emailInput}
+                        <label id='pw'>
+                        password:
+                        <input type="text" value={this.state.password} onChange={this.handleChangePW} />
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
+                </div>
             );
         } else {
             return (

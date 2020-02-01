@@ -120,7 +120,7 @@ export function createPrompt(promptText) {
         .then(data => dispatch(selectPrompt(data.prompt.id)))
         .then(action => dispatch(fetchRetorts(action.promptID)))
         .then(() => dispatch(fetchPrompts()))
-        .then(() => dispatch(newCurrPage(2)))
+        .then(() => dispatch(newCurrPage(2,1)))
         .catch(error => dispatch(postPromptFailure(error)))
     }
 }

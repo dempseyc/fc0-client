@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import Loading from '../components/Loading'
-import FCUserForm from '../components/FCUserForm'
+import FCCarouUserForm from '../components/FCCarouUserForm'
 import UserDetails from '../components/UserDetails'
 import { loginUser, findUser, createUser } from '../actions/userActions'
 
@@ -14,7 +14,9 @@ class UserPage extends Component {
     }
 
     submitUsername (username) {
-        this.props.dispatch(findUser(username, this.props.usernames));
+        if (username) {
+            this.props.dispatch(findUser(username, this.props.usernames));
+        }
     }
 
     submitPassword (details) {
@@ -33,18 +35,18 @@ class UserPage extends Component {
         const { messages, user, username, serverOnline } = this.props;
         const ready = (messages[0] === 'ready');
         const userForm = (
-            <FCUserForm 
+            <FCCarouUserForm 
                 submitUsername={this.submitUsername.bind(this)}
                 submitPassword={this.submitPassword.bind(this)} 
                 submitUserCreate={this.submitUserCreate.bind(this)}
                 serverOnline={serverOnline}
-                createMode={ username ? (username.split(' ')[0] === 'enter') : true }
+                createMode={ (username !== '') ? !user.found : true }
             />
         )
         return (
             <div className={'user'}>
-                {(ready) ? <UserDetails user={user}/> : userForm}
                 {(ready) ? null : this.messageList(messages)}
+                {(ready) ? <UserDetails user={user}/> : userForm}
             </div>
         )
     }

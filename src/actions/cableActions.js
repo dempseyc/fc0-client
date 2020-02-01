@@ -115,7 +115,7 @@ export function broadcastChat (subscription, message, user) {
             // dispatch({type: 'SENT_CHAT_MESSAGE', payload: params });
         } else {
             dispatch(handleReceived({meta:"chat", body:"must login to chat",sender:"ERROR"}));
-            dispatch(newCurrPage(0,3));
+            // dispatch(newCurrPage(0,3));
         }
     }
 }

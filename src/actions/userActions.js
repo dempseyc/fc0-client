@@ -94,8 +94,8 @@ function userFound (username) {
 function userNotFound (username) {
     return {
         type: USER_NOT_FOUND,
-        username:  `enter email to create user ${username}`,
-        message: `username ${username} available`
+        username:  `${username}`,
+        message: `enter email to create user`
     }
 }
 

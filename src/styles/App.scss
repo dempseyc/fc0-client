@@ -72,7 +72,10 @@ div {
   font-feature-settings: 'liga';
 }
 
-
+.user {
+  max-height: 65vh;
+  // overflow-y: scroll;
+}
 
 // input[type=text] {
 //   font-family: 'Josefin Slab', serif;

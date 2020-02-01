@@ -52,3 +52,6 @@ div {
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga'; }
+
+.user {
+  max-height: 65vh; }
