@@ -15,7 +15,8 @@ import {
 const initialState = {
     allPrompts: { isFetching: true, items: [] },
     retortsByPrompt: {isFetching: true},
-    selectedPrompt: 1
+    selectedPrompt: 1,
+    serverOnline: false
   }
 
 function selectedPrompt(state = initialState.selectedPrompt, action) {
@@ -40,6 +41,7 @@ function allPrompts(
         ...state,
         isFetching: false,
         items: action.prompts,
+        serverOnline: true
       }
     case POST_PROMPT:
       return {
@@ -57,7 +59,7 @@ function retorts (state = {}, action) {
       return {
         ...state,
         items: action.retorts,
-        didInvalidate: false
+        didInvalidate: false,
       }
     case POST_LIKE_SUCCESS:
     case DELETE_LIKE_SUCCESS:
@@ -94,7 +96,7 @@ function retortsByPrompt(state = initialState.retortsByPrompt, action) {
         return {
           ...state,
           isFetching: false,
-          [action.promptID]: retorts(state[action.promptID], action)
+          [action.promptID]: retorts(state[action.promptID], action),
         }
       case POST_RETORT: 
         return {

@@ -23,7 +23,7 @@ const DynamicPageHeader = (props) => {
 
     return (
         <div className='PageHeader'>
-            <div className='PageHeader-span'>{userPageHeaderDetails.text}</div>
+            {props.loggedIn ? <div className='PageHeader-span'>{userPageHeaderDetails.text}</div> : null}
             {props.loggedIn ? userPageHeaderDetails.button() : null}
         </div>
     );

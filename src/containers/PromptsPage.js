@@ -54,7 +54,7 @@ class PromptsPage extends Component {
                         click={ () => {
                             this.props.dispatch(selectPrompt(item.id));
                             this.props.dispatch(fetchRetorts(item.id));
-                            this.props.dispatch(newCurrPage(2));
+                            this.props.dispatch(newCurrPage(2,views.index));
                         } } 
                     /> ) 
                 ) : null;

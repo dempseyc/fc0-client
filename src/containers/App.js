@@ -10,7 +10,9 @@ import SwiperPage from '../components/SwiperPage'
 
 import { newCurrPage } from '../actions/viewsActions'
 
-import { fetchUsers, fetchUser } from '../actions/userActions'
+import { 
+	// fetchUsers, 
+	fetchUser } from '../actions/userActions'
 
 import {
 	broadcastChat,
@@ -28,7 +30,7 @@ const viewsStyle = {
 	minWidth: '102vw'
 };
 
-const pageColors5 = ['#00aaaa','#3a99a7','#699cab','#a3b2b8','#eeddcc'];
+const pageColors5 = ['#ccbbaa','#00aaaa','#3a99a7','#699cab','#a3b2b8'];
 const pageNames = ['User','Prompts','Retorts','Foamy','More'];
 
 class App extends Component {
@@ -40,11 +42,10 @@ class App extends Component {
 		this.swiperPages = this.buildSwiperPages();
 	}
 
-	async initialFetch () {
-		await this.props.dispatch(fetchUsers());
-		await this.props.dispatch(fetchUser());
-		await this.props.dispatch(connectCable(this.props.username));
-	}
+	// async initialFetch () {
+	// 	await this.props.dispatch(fetchUser());
+	// 	// await this.props.dispatch(connectCable(this.props.username));
+	// }
 
 	buildSwiperPages () {
 
@@ -56,26 +57,26 @@ class App extends Component {
 				pageIdx={i}
 				bgColor={c}
 				pageName={pageName}
-				onLogin={(pageName === 'User') ? this.onLogin : null}
 			/> )
 		});
 		return pages;
 	}
 
-	newCurrPage (index) {
+	newCurrPage (index, calledFrom) {
 		if (this.props.index !== index) {
-			this.props.dispatch(newCurrPage(index, this.props.index));
+			this.props.dispatch(newCurrPage(index, this.props.index,calledFrom));
 		}
 	}
 
 	handleTabChange (event, value) {
-		this.props.dispatch(newCurrPage(value, this.props.index));
+		event.preventDefault();
+		this.newCurrPage(value, 'tab_change');
 	}
 
-	componentDidMount() {
-		console.log('cdm');
-		this.initialFetch();
-	}
+	// componentDidMount() {
+	// 	console.log('cdm');
+	// 	this.initialFetch();
+	// }
 
 	componentWillUnmount() {
 		console.log('cwu');
@@ -94,9 +95,13 @@ class App extends Component {
 				enableMouseEvents
 				style={viewsStyle}
 				className='swipeable-views'
-				onChangeIndex={ (index) => this.newCurrPage(index) }
-				index={ this.props.index }  
+				onChangeIndex={ (index) => {
+					console.log(this.props.index)
+					this.newCurrPage(index,'swipeableViews')
+					} }
+				index={ this.props.index }
 				children={ this.swiperPages }
+				ignoreNativeScroll={true}
 			/>
 			<Header />
 			<NavBar

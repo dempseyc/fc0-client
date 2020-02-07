@@ -10,36 +10,47 @@
   margin: 0 auto;
   margin-top: 15vh; }
 
+.carou-user-form-and-tabs {
+  display: flex;
+  flex-direction: column; }
+  .carou-user-form-and-tabs .form-tabs {
+    display: flex;
+    flex-direction: row; }
+    .carou-user-form-and-tabs .form-tabs .form-tab {
+      display: block;
+      text-decoration: none;
+      color: darkgray;
+      flex: 1 1 100%; }
+    .carou-user-form-and-tabs .form-tabs .focus {
+      color: white; }
+
 .carou-user-form {
   display: flex;
   flex-direction: row;
-  max-height: 50vh;
+  max-height: 8rem;
   overflow-x: hidden; }
-
-.carou-user-form form {
-  flex: 0 0 100%; }
-
-.carou-user-form form label input[type=text] {
-  width: 95%;
-  min-height: 1.3em;
-  padding: 0.1em;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-size: 1em;
-  display: inline-block;
-  color: #ddddcc;
-  border: 5px solid #ddddcc;
-  margin-bottom: 0.4em;
-  background: #666655; }
-
-.carou-user-form form input[type=submit] {
-  margin: 1rem 0;
-  width: 97%;
-  height: 3rem;
-  font-size: 1.5rem;
-  color: white;
-  background-color: #00000000;
-  border-radius: 4px;
-  border: 1px solid white; }
+  .carou-user-form form {
+    flex: 0 0 100%; }
+    .carou-user-form form label input[type=text] {
+      width: 95%;
+      min-height: 1.3em;
+      padding: 0.1em;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-size: 1em;
+      display: inline-block;
+      color: #ddddcc;
+      border: 5px solid #ddddcc;
+      margin-bottom: 0.4em;
+      background: #666655; }
+    .carou-user-form form input[type=submit] {
+      margin: 1rem 0;
+      width: 97%;
+      height: 3rem;
+      font-size: 1.5rem;
+      color: white;
+      background-color: #00000000;
+      border-radius: 4px;
+      border: 1px solid white; }
 
 .prompt-list {
   max-height: 57vh;
@@ -64,28 +75,26 @@
   width: 95vw;
   left: 0;
   text-align: left; }
-
-.chat-form input[type=text] {
-  margin: 0;
-  flex-basis: 85%;
-  font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-size: 1em;
-  color: #ddddcc;
-  border: 5px solid #ddddcc;
-  padding: 2px;
-  padding-left: 7px;
-  background: #666655; }
-
-.chat-form input[type=submit] {
-  margin: 0;
-  margin-left: -4px;
-  flex-basis: 15%;
-  height: 3rem;
-  font-size: 1.5rem;
-  color: white;
-  background-color: #00000000;
-  border-radius: 4px;
-  border: 4px solid white; }
+  .chat-form input[type=text] {
+    margin: 0;
+    flex-basis: 85%;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-size: 1em;
+    color: #ddddcc;
+    border: 5px solid #ddddcc;
+    padding: 2px;
+    padding-left: 7px;
+    background: #666655; }
+  .chat-form input[type=submit] {
+    margin: 0;
+    margin-left: -4px;
+    flex-basis: 15%;
+    height: 3rem;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #00000000;
+    border-radius: 4px;
+    border: 4px solid white; }
 
 .PageHeader-span {
   font-size: 1.2em;

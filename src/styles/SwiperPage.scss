@@ -15,11 +15,32 @@
     // overflow-y: scroll;
 }
 
+.carou-user-form-and-tabs {
+    display: flex;
+    flex-direction: column;
+
+    .form-tabs {
+        display: flex;
+        flex-direction: row;
+
+        .form-tab {
+            display: block;
+            text-decoration: none;
+            color: darkgray;
+            flex: 1 1 100%;
+        }
+
+        .focus {
+            color: white;
+        }
+    }
+}
+
 .carou-user-form {
     
     display: flex;
     flex-direction: row;
-    max-height: 50vh;
+    max-height: 8rem;
     overflow-x: hidden;
 
     form {

@@ -57,7 +57,7 @@ class FCDialogEdit extends React.Component {
                     onChange={ (e) => this.setState({ value: e.target.value }) }
                     placeholder={this.placeholder}
                     multiline={true}
-                    autoFocus
+                    // autoFocus
                     margin='dense'
                     // id='prompt'
                     label={`edit ${this.type}`}

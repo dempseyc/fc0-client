@@ -20,6 +20,7 @@ export const POST_USER = 'POST_USER';
 export const POST_USER_SUCCESS = 'POST_USER_SUCCESS';
 export const POST_USER_FAILURE = 'POST_USER_FAILURE';
 
+export const STORE_CREDENTIALS = 'STORE_CREDENTIALS';
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
@@ -36,68 +37,68 @@ export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE';
 
 export const RESET_USER = 'RESET_USER';
 
-export function fetchUsers () {
-    return function (dispatch) {
-        dispatch(getUsers());
-        const url = `${API_URL}api/users`;
-        return axios.get(url)
-        .then(response => {
-            dispatch(getUsersSuccess(response.data));
-        })
-        .catch(error => {
-            dispatch(getUsersFailure(error));
-            dispatch(newCurrPage(0,1));
-        })
-    }
-}
+// export function fetchUsers () {
+//     return function (dispatch) {
+//         dispatch(getUsers());
+//         const url = `${API_URL}api/users`;
+//         return axios.get(url)
+//         .then(response => {
+//             dispatch(getUsersSuccess(response.data));
+//         })
+//         .catch(error => {
+//             dispatch(getUsersFailure(error));
+//             dispatch(newCurrPage(0,1));
+//         })
+//     }
+// }
 
-function getUsers () {
-    return {
-        type: GET_USERS,
-    }
-}
+// function getUsers () {
+//     return {
+//         type: GET_USERS,
+//     }
+// }
 
-function getUsersSuccess (users) {
-    return {
-        type: GET_USERS_SUCCESS,
-        users: users,
-        message: 'get users success'
-    }
-}
+// function getUsersSuccess (users) {
+//     return {
+//         type: GET_USERS_SUCCESS,
+//         users: users,
+//         message: 'get users success'
+//     }
+// }
 
-function getUsersFailure (error) {
-    return {
-        type: GET_USERS_FAILURE,
-        username: 'server error, try reloading',
-        message: 'not connected to server'
-    }
-}
+// function getUsersFailure (error) {
+//     return {
+//         type: GET_USERS_FAILURE,
+//         username: 'server error, try reloading',
+//         message: 'not connected to server'
+//     }
+// }
 
-export function findUser (username, users) {
-    return function (dispatch) {
-        if (users[username]) {
-            dispatch(userFound(username));
-        } else {
-            dispatch(userNotFound(username));
-        }
-    }
-}
+// export function findUser (username, users) {
+//     return function (dispatch) {
+//         if (users[username]) {
+//             dispatch(userFound(username));
+//         } else {
+//             dispatch(userNotFound(username));
+//         }
+//     }
+// }
 
-function userFound (username) {
-    return {
-        type: USER_FOUND,
-        username: username,
-        message: `enter password for ${username}`
-    }
-}
+// function userFound (username) {
+//     return {
+//         type: USER_FOUND,
+//         username: username,
+//         message: `enter password for ${username}`
+//     }
+// }
 
-function userNotFound (username) {
-    return {
-        type: USER_NOT_FOUND,
-        username:  `${username}`,
-        message: `enter email to create user`
-    }
-}
+// function userNotFound (username) {
+//     return {
+//         type: USER_NOT_FOUND,
+//         username:  `${username}`,
+//         message: `enter email to create user`
+//     }
+// }
 
 export function createUser (details) {
     return function (dispatch) {
@@ -142,9 +143,10 @@ function postUserFailure (error) {
     }
 }
 
-export function loginUser (details) {
+export function loginUser (credentials) {
     return function (dispatch) {
-        var basicAuth = 'Basic ' + btoa(details.username + ':' + details.password);
+        dispatch(storeCredentials(credentials));
+        var basicAuth = 'Basic ' + btoa(credentials.username + ':' + credentials.password);
         let url = `${API_URL}api/auth/login`;
         return axios.post(url, {}, {
             headers: {'Authorization': basicAuth} 
@@ -154,10 +156,17 @@ export function loginUser (details) {
     }
 }
 
+function storeCredentials (credentials) {
+    return {
+        type: STORE_CREDENTIALS,
+        payload: credentials,
+    }
+}
+
 function loginUserFailure (error) {
     return {
         type: LOGIN_USER_FAILURE,
-        payload: { error },
+        payload: error.response.data,
         message: 'login user failure'
     }
 }
@@ -166,7 +175,7 @@ function receiveToken (data) {
     return function (dispatch) {
         localStorage.setItem('token',data.token);
         localStorage.setItem('id',data.id);
-        dispatch(fetchUsers());
+        // dispatch(fetchUsers());
         dispatch(fetchUser());
     }
 }

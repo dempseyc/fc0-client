@@ -5,8 +5,9 @@ import {
 
 const initialState = {
     numPages: 5,
-    index: 1,
+    index: 0,
     indexLatest: 0,
+    calledFrom: ''
   }
 
 function viewsReducer(state=initialState, action) {
@@ -15,7 +16,8 @@ function viewsReducer(state=initialState, action) {
             return {
                 ...state,
                 indexLatest: action.prevIdx,
-                index: action.pageIdx
+                index: action.pageIdx,
+                calledFrom: action.calledFrom
             }
         default:
             return state;
