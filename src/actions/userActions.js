@@ -3,7 +3,7 @@ import axios from 'axios'
 // import { subscribe, unsubscribe } from './cableActions'
 import { newCurrPage } from './viewsActions'
 
-import { connectCable, unsubscribe } from './cableActions'
+// import { connectCable, unsubscribe } from './cableActions'
 
 import { API_URL } from './API_URL'
 
@@ -196,8 +196,8 @@ export function fetchUser () {
             })
             .then(response => {
                 dispatch(getUserSuccess(response.data));
-                dispatch(unsubscribe());
-                dispatch(connectCable(response.data.username));
+                // dispatch(unsubscribe());
+                // dispatch(connectCable(response.data.username));
             })
             .catch(error => {
                 dispatch(getUserFailure(error));

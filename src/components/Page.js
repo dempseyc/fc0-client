@@ -23,7 +23,7 @@ class Page extends Component {
             case 'Retorts':
                 return <><PageHeader pageName={this.pageName}/><RetortsPage /></>
             case 'User':
-                return <><DynamicPageHeader loggedIn={localStorage.id?true:false} pageName={this.pageName}/><UserPage /></>
+                return <><DynamicPageHeader loggedIn={this.props.loggedIn} pageName={this.pageName}/><UserPage /></>
             case 'Foamy':
                 return <><FoamyPage /></>
             case 'More':

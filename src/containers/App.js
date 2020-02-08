@@ -30,7 +30,7 @@ const viewsStyle = {
 	minWidth: '102vw'
 };
 
-const pageColors5 = ['#ccbbaa','#00aaaa','#3a99a7','#699cab','#a3b2b8'];
+const pageColors5 = ['#c5cfd3','#00aaaa','#3a99a7','#699cab','#ccbbaa'];
 const pageNames = ['User','Prompts','Retorts','Foamy','More'];
 
 class App extends Component {
@@ -42,10 +42,10 @@ class App extends Component {
 		this.swiperPages = this.buildSwiperPages();
 	}
 
-	// async initialFetch () {
-	// 	await this.props.dispatch(fetchUser());
-	// 	// await this.props.dispatch(connectCable(this.props.username));
-	// }
+	async initialFetch () {
+		await this.props.dispatch(fetchUser());
+		await this.props.dispatch(connectCable('MyChannel',this.props.username));
+	}
 
 	buildSwiperPages () {
 
@@ -73,14 +73,15 @@ class App extends Component {
 		this.newCurrPage(value, 'tab_change');
 	}
 
-	// componentDidMount() {
-	// 	console.log('cdm');
-	// 	this.initialFetch();
-	// }
+	componentDidMount() {
+		console.log('cdm');
+		this.initialFetch();
+	}
 
 	componentWillUnmount() {
 		console.log('cwu');
-		unsubscribe();
+		unsubscribe('MyChannel');
+		unsubscribe('ChatChannel');
 		// this.props.cable.subscriptions.remove(this.props.subscription);
 		// taken as data in server in receive
 		// this.subscription.send('hello world');
@@ -120,8 +121,10 @@ const mapStateToProps = state => ({
 	Retorts: state.contentReducer.retortsByPrompt,
 	user: state.userReducer.user,
 	username: state.userReducer.user.username,
-	subscription: state.cableReducer.subscription,
-	cable: state.cableReducer.cable
+	myChannel: state.cableReducer.MyChannel.subscription,
+	chatChannel: state.cableReducer.ChatChannel.subscription,
+	myCable: state.cableReducer.MyChannel.cable,
+	chatCable: state.cableReducer.ChatChannel.cable
 });
 
 export default connect(mapStateToProps)(App);

@@ -5,7 +5,8 @@ const LoginTab = (props) => (
     <Button 
         onClick={
             props.onClick
-            } variant={props.selected ? 'outlined' : 'text'} color='primary'>
+            } variant={props.selected ? 'outlined' : 'text'} color='primary' >
+            
         SIGN IN
     </Button>
 );
@@ -14,10 +15,27 @@ const NewTab = (props) => (
     <Button 
         onClick={
             props.onClick
-            } variant={props.selected ? 'outlined' : 'text'} color='secondary'>
+            } variant={props.selected ? 'outlined' : 'text'} color='secondary' >
         NEW USER
     </Button>
 );
+
+const FormHeader = (props) => {
+    const header = (props.createMode) ? `create user ${props.desiredUN}?` : `welcome back`;
+    return (
+        <div className="form-header">
+        <LoginTab 
+            onClick={() => props.setMode(false)}
+            selected={!props.createMode}
+        />
+        <NewTab 
+            onClick={() => props.setMode(true)}
+            selected={props.createMode}
+        />
+        <header>{header}</header>
+        </div>
+    )
+}
 
 const FormTabs = (props) => {
 
@@ -79,23 +97,6 @@ const PasswordForm = (props) => {
     </label>
     <input type="submit" value="Submit" />
     </form>);
-}
-
-const FormHeader = (props) => {
-    const header = (props.createMode) ? `create user ${props.desiredUN}?` : `welcome back`;
-    return (
-        <div className="form-header">
-        <LoginTab 
-            onClick={() => props.setMode(false)}
-            selected={!props.createMode}
-        />
-        <NewTab 
-            onClick={() => props.setMode(true)}
-            selected={props.createMode}
-        />
-        <header>{header}</header>
-        </div>
-    )
 }
 
 class FCCarouUserForm extends Component {

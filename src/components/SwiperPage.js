@@ -14,6 +14,7 @@ export default class SwiperPage extends React.Component {
                 style={pageStyle}>
                 <Page 
                     pageName={this.props.pageName}
+                    loggedIn={this.props.loggedIn}
                 />
             </div>
         )

@@ -20,8 +20,10 @@ const store = configureStore();
 // typography is injecting, not pallette
 const theme = createMuiTheme({
   palette: {
-    primary: cyan,
     secondary: teal,
+    primary: {
+      main: '#00bcd4'
+    }
   },
   typography: {
     fontFamily: 'sans-serif',

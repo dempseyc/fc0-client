@@ -30,6 +30,7 @@ const DynamicPageHeader = (props) => {
 }
 
 const mapStateToProps = state => ({
+    loggedIn: state.userReducer.user.loggedIn,
     username: state.userReducer.user.username,
     cable: state.cableReducer.cable,
     subscription: state.cableReducer.subscription
