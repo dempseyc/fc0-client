@@ -11,7 +11,6 @@ import SwiperPage from '../components/SwiperPage'
 import { newCurrPage } from '../actions/viewsActions'
 
 import { 
-	// fetchUsers, 
 	fetchUser } from '../actions/userActions'
 
 import {
@@ -19,6 +18,7 @@ import {
 	storeSubscription,
 	connectCable,
 	afterConnect,
+	subscribe,
 	unsubscribe } from '../actions/cableActions'
 
 
@@ -44,7 +44,10 @@ class App extends Component {
 
 	async initialFetch () {
 		await this.props.dispatch(fetchUser());
-		await this.props.dispatch(connectCable('MyChannel',this.props.username));
+		await this.props.dispatch(connectCable());
+		this.props.dispatch(subscribe('MyChannel',this.props.cable));
+		this.props.dispatch(subscribe('ChatChannel',this.props.cable,this.props.username));
+
 	}
 
 	buildSwiperPages () {
@@ -93,9 +96,9 @@ class App extends Component {
 		return (
 		<div className="App">
 			<SwipeableViews 
-				enableMouseEvents
+				// enableMouseEvents
 				style={viewsStyle}
-				className='swipeable-views'
+				className='swipeable-views o-a-none'
 				onChangeIndex={ (index) => {
 					console.log(this.props.index)
 					this.newCurrPage(index,'swipeableViews')
@@ -103,6 +106,7 @@ class App extends Component {
 				index={ this.props.index }
 				children={ this.swiperPages }
 				ignoreNativeScroll={true}
+
 			/>
 			<Header />
 			<NavBar
@@ -123,8 +127,7 @@ const mapStateToProps = state => ({
 	username: state.userReducer.user.username,
 	myChannel: state.cableReducer.MyChannel.subscription,
 	chatChannel: state.cableReducer.ChatChannel.subscription,
-	myCable: state.cableReducer.MyChannel.cable,
-	chatCable: state.cableReducer.ChatChannel.cable
+	cable: state.cableReducer.cable,
 });
 
 export default connect(mapStateToProps)(App);

@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import Loading from '../components/Loading'
 import FCCarouUserForm from '../components/FCCarouUserForm'
 import UserDetails from '../components/UserDetails'
-import { loginUser,
-//  findUser, 
+import { loginUser, 
  createUser } from '../actions/userActions'
+// import { subscribe } from '../actions/cableActions'
 
 class UserPage extends Component {
 
@@ -65,6 +65,7 @@ const mapStateToProps = state => ({
     serverOnline: state.contentReducer.allPrompts.serverOnline,
     credentials: state.userReducer.user.credentials,
     messages: state.userReducer.messages,
+    cable: state.cableReducer.cable
 });
 
 export default connect(mapStateToProps)(UserPage)

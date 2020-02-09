@@ -3,7 +3,8 @@ import axios from 'axios'
 // import { subscribe, unsubscribe } from './cableActions'
 import { newCurrPage } from './viewsActions'
 
-// import { connectCable, unsubscribe } from './cableActions'
+import { subscribe,
+	unsubscribe } from '../actions/cableActions'
 
 import { API_URL } from './API_URL'
 
@@ -151,7 +152,9 @@ export function loginUser (credentials) {
         return axios.post(url, {}, {
             headers: {'Authorization': basicAuth} 
         })
-        .then(response => dispatch(receiveToken(response.data)))
+        .then(response => {
+            dispatch(receiveToken(response.data));
+        })
         .catch(error => dispatch(loginUserFailure(error)))
     }
 }
@@ -175,7 +178,6 @@ function receiveToken (data) {
     return function (dispatch) {
         localStorage.setItem('token',data.token);
         localStorage.setItem('id',data.id);
-        // dispatch(fetchUsers());
         dispatch(fetchUser());
     }
 }
@@ -196,8 +198,6 @@ export function fetchUser () {
             })
             .then(response => {
                 dispatch(getUserSuccess(response.data));
-                // dispatch(unsubscribe());
-                // dispatch(connectCable(response.data.username));
             })
             .catch(error => {
                 dispatch(getUserFailure(error));
@@ -229,9 +229,16 @@ function getUserSuccess (user) {
     }
 }
 
-export function logoutUser () {
+export function removeToken () {
     localStorage.removeItem('token');
     localStorage.removeItem('id');
+    return (dispatch) => {
+        dispatch(unsubscribe('ChatChannel'));
+        dispatch(logoutUser());
+    }
+}
+
+function logoutUser () {
     return {
         type: LOGOUT_USER
     }

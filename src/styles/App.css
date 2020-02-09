@@ -2,20 +2,14 @@ body {
   color: #ffffff;
   background: #222222;
   font-family: 'M PLUS Rounded 1c', sans-serif;
-  font-size: 20px; }
+  font-size: 20px;
+  overflow: hidden; }
 
 .App {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   top: 0;
   left: 0;
   text-align: center; }
-
-.SwipeableViews {
-  position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100vw;
-  min-height: 100vh; }
 
 div {
   margin: 0;

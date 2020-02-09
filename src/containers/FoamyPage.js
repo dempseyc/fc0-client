@@ -30,7 +30,7 @@ const mapStateToProps = state => ({
     user: state.userReducer.user,
     userTable: state.userReducer.users,
     chatItems: state.cableReducer.items,
-    subscription: state.cableReducer.subscription
+    subscription: state.cableReducer.ChatChannel.subscription
 });
 
 export default connect(mapStateToProps)(FoamyPage);

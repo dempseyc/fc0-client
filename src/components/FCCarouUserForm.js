@@ -21,7 +21,7 @@ const NewTab = (props) => (
 );
 
 const FormHeader = (props) => {
-    const header = (props.createMode) ? `create user ${props.desiredUN}?` : `welcome back`;
+    // const header = (props.createMode) ? `create user ${props.desiredUN}?` : `welcome back`;
     return (
         <div className="form-header">
         <LoginTab 
@@ -32,7 +32,7 @@ const FormHeader = (props) => {
             onClick={() => props.setMode(true)}
             selected={props.createMode}
         />
-        <header>{header}</header>
+        {/* <header>{header}</header> */}
         </div>
     )
 }

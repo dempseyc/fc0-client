@@ -6,12 +6,11 @@ import {
 } from '../actions/cableActions'
 
 const initialState = {
+    cable: null,
     MyChannel: {
-        cable: null,
         subscription: null,
     },
     ChatChannel: {
-        cable: null,
         subscription: null,
     },
     items: []
@@ -27,22 +26,18 @@ function cableReducer(state=initialState, action) {
         case STORE_CABLE:
             return {
                 ...state,
-                [action.channel]: {
-                    ...state[action.channel],
-                    cable: action.cable
-                }
+                cable: action.cable
             }
         case STORE_SUBSCRIPTION:
             return {
                 ...state,
                 [action.channel]: {
-                    ...state[action.channel],
                     subscription: action.subscription
                 }
             }
         case UNSUBSCRIBE:
-            if (state[action.channel].cable && state[action.channel].subscription) {
-                state[action.channel].cable.subscriptions.remove(state[action.channel].subscription);
+            if (state.cable && state[action.channel].subscription) {
+                state.cable.subscriptions.remove(state[action.channel].subscription);
             }
             return {
                 ...state,

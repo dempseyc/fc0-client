@@ -12,28 +12,26 @@ export const STORE_SUBSCRIPTION = "STORE_SUBSCRIPTION";
 export const STORE_CABLE = "STORE_CABLE";
 export const UNSUBSCRIBE = "UNSUBSCRIBE";
 
-
-export function afterConnect (cable,subscription,channel,user) {
-    return (dispatch) => {
-        dispatch(storeCable(cable,channel));
-        dispatch(storeSubscription(subscription,channel));
-    }
-}
-
-export function connectCable (channel, user) {
+export function connectCable () {
     return (dispatch) => {
         let cable = ActionCable.createConsumer(CABLE_URL, localStorage.token);
+        dispatch(storeCable(cable))
+    }
+    // console.log("channell", JSON.parse(this.subscription.identifier).channel);
+}
+
+export function subscribe (channel,cable,username) {
+    return (dispatch) => {
         let subscription = cable.subscriptions.create({channel: channel}, {
             connected: dispatch(handleConnected(channel)),             // onConnect
             disconnected: dispatch(handleDisconnected(channel)),       // onDisconnect
             received: (data) => {
-                dispatch(handleReceived(data, user.username));
+                dispatch(handleReceived(data, username));
                 console.log("cable received: ", data);
                 },
         });
-        dispatch(afterConnect(cable,subscription,channel,user));
+        dispatch(storeSubscription(subscription,channel));
     }
-    // console.log("channell", JSON.parse(this.subscription.identifier).channel);
 }
 
 export function unsubscribe (channel) {
@@ -106,8 +104,8 @@ export function broadcastChat (subscription, message, user) {
             // not sending when called from afterConnect... something async
             // console.log('subscription', subscription);
             //// CHAT DISABLED
-            // subscription.send(params);
-            dispatch(handleReceived({meta:"chat", body:"sorry, chat temporarily disabled",sender:"ERROR"}));
+            subscription.send(params);
+            // dispatch(handleReceived({meta:"chat", body:"sorry, chat temporarily disabled",sender:"ERROR"}));
             //// // CHAT DISABLED
             // dispatch({type: 'SENT_CHAT_MESSAGE', payload: params });
         } else {

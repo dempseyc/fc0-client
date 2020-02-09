@@ -3,8 +3,17 @@ body {
   background: #222222;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 20px;
+  overflow: hidden;
 }
 
+// .o-a-none {
+//   overflow-anchor: none;
+// }
+
+// .react-swipeable-view-container {
+//   overflow-anchor: none;
+//   // overflow: hidden;
+// }
 
 .App {
   // position: fixed;
@@ -19,14 +28,14 @@ body {
   text-align: center;
 }
 
-.SwipeableViews {
-  position: fixed;
-  top: 0;
-  left: 0;
-  // padding-right: 6px;
-  min-width: 100vw;
-  min-height: 100vh;
-}
+// .SwipeableViews {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   // padding-right: 6px;
+//   min-width: 100vw;
+//   min-height: 100vh;
+// }
 
 // reset
 div {
