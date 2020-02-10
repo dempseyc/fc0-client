@@ -15,17 +15,19 @@ class FCActionStar extends Component {
     }
 
     handleClick () {
-        let newValue = this.state.value ? false : true;
-        this.setState({
-            value: newValue
-        });
-       newValue ? this.props.dispatch(addLike(this.props.selected,this.props.data.retortID)) : this.props.dispatch(removeLike(this.props.selected,this.props.data.retortID, this.props.data.likeID)) ;
+        if (this.props.loggedIn) {
+            let newValue = this.state.value ? false : true;
+            this.setState({
+                value: newValue
+            });
+            newValue ? this.props.dispatch(addLike(this.props.selected,this.props.data.retortID)) : this.props.dispatch(removeLike(this.props.selected,this.props.data.retortID, this.props.data.likeID)) ;
+        }
     }
 
     render() {
         const { value } = this.state;
         const createdBy = <span key={`${this.props.data.retortID}-created-by`} className={'created-by'}>
-                    {`-${this.props.data.createdBy}`}
+                    {`-${this.props.data.createdBy.name}`}
                 </span>
         const display =  value ? <Star key={this.props.data.retortID} /> : <StarBorder key={this.props.data.retortID} />;
         const text = <span key={`${this.props.data.retortID}-star-count`} className="star-count">{this.props.data.count}</span>;
@@ -43,6 +45,7 @@ class FCActionStar extends Component {
 
 const mapStateToProps = state => ({
     selected: state.contentReducer.selectedPrompt,
+    loggedIn: state.userReducer.user.loggedIn,
     });
 
 export default connect(mapStateToProps)(FCActionStar);

@@ -5,7 +5,7 @@ const LoginTab = (props) => (
     <Button 
         onClick={
             props.onClick
-            } variant={props.selected ? 'outlined' : 'text'} color='primary' >
+            } variant={props.selected ? 'outlined' : 'text'} color={'primary'} >
             
         SIGN IN
     </Button>
@@ -15,7 +15,7 @@ const NewTab = (props) => (
     <Button 
         onClick={
             props.onClick
-            } variant={props.selected ? 'outlined' : 'text'} color='secondary' >
+            } variant={props.selected ? 'outlined' : 'text'} color={'secondary'} >
         NEW USER
     </Button>
 );

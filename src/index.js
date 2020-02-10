@@ -23,7 +23,7 @@ const theme = createMuiTheme({
     secondary: teal,
     primary: {
       main: '#00bcd4'
-    }
+    },
   },
   typography: {
     fontFamily: 'sans-serif',

@@ -4,8 +4,10 @@ import FCActionStar from '../containers/FCActionStar';
 
 class RetortBlock extends React.Component {
 
-    render({ item,selected,myLike,likedByMe,createdBy } = this.props) {
-
+    render(props) {
+        const { item,selected,myLike,likedByMe } = this.props
+        const createdBy = JSON.parse(this.props.createdBy)
+        console.log(createdBy,'createdBy')
         return (
             <div className={'retort-block'}>
                 <FCTextItem

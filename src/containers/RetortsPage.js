@@ -88,7 +88,7 @@ class RetortsPage extends Component {
                         selected={selected}
                         myLike={myLike}
                         likedByMe={likedByMe}
-                        createdBy={usersById[item.created_by]}
+                        createdBy={item.created_by}
                     />
                 )
             }) : null;
