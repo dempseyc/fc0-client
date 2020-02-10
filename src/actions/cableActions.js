@@ -17,7 +17,6 @@ export function connectCable () {
         let cable = ActionCable.createConsumer(CABLE_URL, localStorage.token);
         dispatch(storeCable(cable))
     }
-    // console.log("channell", JSON.parse(this.subscription.identifier).channel);
 }
 
 export function subscribe (channel,cable,username) {
@@ -101,16 +100,9 @@ export function broadcastChat (subscription, message, user) {
     return function (dispatch) {
         if (user.loggedIn) {
             const params = { meta: "chat", body: message, sender: user.username }
-            // not sending when called from afterConnect... something async
-            // console.log('subscription', subscription);
-            //// CHAT DISABLED
             subscription.send(params);
-            // dispatch(handleReceived({meta:"chat", body:"sorry, chat temporarily disabled",sender:"ERROR"}));
-            //// // CHAT DISABLED
-            // dispatch({type: 'SENT_CHAT_MESSAGE', payload: params });
         } else {
             dispatch(handleReceived({meta:"chat", body:"must login to chat",sender:"ERROR"}));
-            // dispatch(newCurrPage(0,3));
         }
     }
 }

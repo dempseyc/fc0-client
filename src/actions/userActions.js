@@ -3,7 +3,7 @@ import axios from 'axios'
 // import { subscribe, unsubscribe } from './cableActions'
 import { newCurrPage } from './viewsActions'
 
-import { subscribe,
+import {
 	unsubscribe } from '../actions/cableActions'
 
 import { API_URL } from './API_URL'

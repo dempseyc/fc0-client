@@ -13,6 +13,7 @@ const initialState = {
 function viewsReducer(state=initialState, action) {
     switch (action.type) {
         case NEW_CURR_PAGE:
+            // if action.calledFrom === 'swipeableViews'
             return {
                 ...state,
                 indexLatest: action.prevIdx,

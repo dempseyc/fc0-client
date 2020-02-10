@@ -2,13 +2,15 @@
   position: absolute;
   min-width: 100%;
   height: 100vh;
-  overflow: hidden; }
+  overflow: hidden;
+  overflow-anchor: none; }
 
 .page {
   position: relative;
   width: 95vw;
   margin: 0 auto;
-  margin-top: 15vh; }
+  margin-top: 15vh;
+  overflow-anchor: none; }
 
 .carou-user-form-and-tabs {
   display: flex;

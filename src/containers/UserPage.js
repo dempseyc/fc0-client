@@ -6,7 +6,7 @@ import FCCarouUserForm from '../components/FCCarouUserForm'
 import UserDetails from '../components/UserDetails'
 import { loginUser, 
  createUser } from '../actions/userActions'
-// import { subscribe } from '../actions/cableActions'
+import { subscribe, unsubscribe } from '../actions/cableActions'
 
 class UserPage extends Component {
 
@@ -25,6 +25,20 @@ class UserPage extends Component {
 
     contentLoading () {
         return <Loading contentName={this.pageName}/>
+    }
+
+    manageCable () {
+		if (this.props.cable && this.props.user.loggedIn && !this.props.chatChannel) {
+			this.props.dispatch(subscribe('ChatChannel',this.props.cable,this.props.username))
+		} else if (this.props.chatChannel) {
+			this.props.dispatch(unsubscribe('ChatChannel'))
+		}
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.user.loggedIn !== this.props.user.loggedIn) {
+            this.manageCable();
+        }
     }
 
     render () {
@@ -65,6 +79,7 @@ const mapStateToProps = state => ({
     serverOnline: state.contentReducer.allPrompts.serverOnline,
     credentials: state.userReducer.user.credentials,
     messages: state.userReducer.messages,
+    chatChannel: state.cableReducer.ChatChannel.subscription,
     cable: state.cableReducer.cable
 });
 

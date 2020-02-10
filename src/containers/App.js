@@ -17,7 +17,6 @@ import {
 	broadcastChat,
 	storeSubscription,
 	connectCable,
-	afterConnect,
 	subscribe,
 	unsubscribe } from '../actions/cableActions'
 
@@ -47,7 +46,6 @@ class App extends Component {
 		await this.props.dispatch(connectCable());
 		this.props.dispatch(subscribe('MyChannel',this.props.cable));
 		this.props.dispatch(subscribe('ChatChannel',this.props.cable,this.props.username));
-
 	}
 
 	buildSwiperPages () {
@@ -83,8 +81,8 @@ class App extends Component {
 
 	componentWillUnmount() {
 		console.log('cwu');
-		unsubscribe('MyChannel');
-		unsubscribe('ChatChannel');
+		this.props.dispatch(unsubscribe('MyChannel'));
+		this.props.dispatch(unsubscribe('ChatChannel'));
 		// this.props.cable.subscriptions.remove(this.props.subscription);
 		// taken as data in server in receive
 		// this.subscription.send('hello world');
@@ -96,17 +94,16 @@ class App extends Component {
 		return (
 		<div className="App">
 			<SwipeableViews 
-				// enableMouseEvents
+				enableMouseEvents
 				style={viewsStyle}
 				className='swipeable-views o-a-none'
 				onChangeIndex={ (index) => {
 					console.log(this.props.index)
 					this.newCurrPage(index,'swipeableViews')
 					} }
-				index={ this.props.index }
 				children={ this.swiperPages }
 				ignoreNativeScroll={true}
-
+				index={this.props.index}
 			/>
 			<Header />
 			<NavBar

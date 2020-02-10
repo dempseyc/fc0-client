@@ -3,7 +3,14 @@ body {
   background: #222222;
   font-family: 'M PLUS Rounded 1c', sans-serif;
   font-size: 20px;
-  overflow: hidden; }
+  overflow: hidden;
+  overflow-anchor: none; }
+
+.react-swipeable-view-container {
+  overflow-anchor: none; }
+
+.swipeable-views, .SwiperPage, .page, .App {
+  overflow-anchor: none; }
 
 .App {
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);

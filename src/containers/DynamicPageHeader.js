@@ -2,15 +2,14 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { removeToken } from '../actions/userActions';
-import { connectCable, unsubscribe } from '../actions/cableActions';
+import { unsubscribe } from '../actions/cableActions';
 
 const DynamicPageHeader = (props) => {
 
     const logoutButton = () => (
         <Button onClick={()=> {
             props.dispatch(removeToken(props.username));
-            // props.dispatch(unsubscribe(props.cable,props.subscription));
-            // props.dispatch(connectCable());
+            props.dispatch(unsubscribe('ChatChannel'));
                 }} variant='contained' color='primary'>
             SIGN OUT
         </Button>

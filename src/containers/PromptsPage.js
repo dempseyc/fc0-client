@@ -52,6 +52,7 @@ class PromptsPage extends Component {
                         selected={(item.id===selected)?' selected':''}
                         // children={[latherIndicator, newLatherIndicator]}
                         click={ () => {
+                            console.log('clickFn');
                             this.props.dispatch(selectPrompt(item.id));
                             this.props.dispatch(fetchRetorts(item.id));
                             this.props.dispatch(newCurrPage(2,views.index));

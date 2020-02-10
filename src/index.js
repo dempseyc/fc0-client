@@ -91,6 +91,10 @@ const theme = createMuiTheme({
   }
 });
 
+window.onscroll = function() {
+console.log('Scrolling');
+};
+
 const Root = () => (
   <Provider store={store}>
   <MuiThemeProvider theme={theme}>

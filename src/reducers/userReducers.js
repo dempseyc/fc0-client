@@ -127,7 +127,7 @@ function userReducer (state = initialState, action) {
                 case 'wrong password':
                     return {
                         ...state,
-                        user: {...state.user, notFound: false},
+                        user: {...state.user, notFound: false, credentials: {} },
                         isFetching: false,
                         messages: [action.payload.error]
                     }
