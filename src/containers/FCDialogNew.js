@@ -98,8 +98,6 @@ class FCDialogNew extends React.Component {
                     margin='dense'
                     id='filled-basic'
                     helperText={this.props.helperText}
-                    // label={this.label}
-                    // label={`new ${this.type}`}
                     type='text'
                 />
             </DialogContent>
