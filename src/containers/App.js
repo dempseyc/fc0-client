@@ -97,8 +97,10 @@ class App extends Component {
 				enableMouseEvents
 				style={viewsStyle}
 				className='swipeable-views o-a-none'
-				onChangeIndex={ (index) => {
-					console.log(this.props.index)
+				onChangeIndex={ (index,indexLatest,meta) => {
+					if (meta.reason === 'focus') {
+						index = indexLatest
+					}
 					this.newCurrPage(index,'swipeableViews')
 					} }
 				children={ this.swiperPages }
